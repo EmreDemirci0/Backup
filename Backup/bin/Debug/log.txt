@@ -1,19 +1,55 @@
-Google Drive yükleme hatası: 'C:\Users\Lenovo\Downloads\Benim Klasörüm\Auth1(3).rar' dosyası bulunamadı. - 18.09.2024 17:29:21
-Dosya başarıyla yüklendi. - 18.09.2024 17:35:14
-Yükleme sırasında bir hata oluştu. - 18.09.2024 17:37:01
-Yükleme sırasında bir hata oluştu. Status: Failed, Hata mesajı: The service drive has thrown an exception. HttpStatusCode is Forbidden. Request had insufficient authentication scopes. - 18.09.2024 17:41:15
-Yükleme sırasında bir hata oluştu. Status: Failed, Hata mesajı: The service drive has thrown an exception. HttpStatusCode is Forbidden. Request had insufficient authentication scopes. - 18.09.2024 17:50:02
-Google Drive yükleme hatası: 'C:\Users\Lenovo\source\repos\Backup\Backup\bin\Debug\client_secret.json' dosyası bulunamadı. - 18.09.2024 17:54:03
-Google Drive yükleme hatası: 'C:\Users\Lenovo\source\repos\Backup\Backup\bin\Debug\client_secret.json' dosyası bulunamadı. - 18.09.2024 17:54:51
-Google Drive yükleme hatası: 'C:\Users\Lenovo\source\repos\Backup\Backup\bin\Debug\client_secret.json' dosyası bulunamadı. - 18.09.2024 17:55:56
-Dosya başarıyla yüklendi. - 18.09.2024 18:04:08
-Dosya başarıyla yüklendi. - 18.09.2024 18:05:00
-Dosya başarıyla yüklendi. - 18.09.2024 18:05:32
-Dosya başarıyla yüklendi. - 18.09.2024 18:06:36
-Dosya başarıyla yüklendi. - 18.09.2024 18:07:59
-Dosya başarıyla yüklendi. - 18.09.2024 18:11:56
-Dosya başarıyla yüklendi. - 18.09.2024 18:13:47
-Dosya başarıyla yüklendi. - 18.09.2024 18:16:06
-Dosya başarıyla yüklendi. - 18.09.2024 18:17:13
-Yükleme sırasında bir hata oluştu. Status: Failed, Hata mesajı: The service drive has thrown an exception. HttpStatusCode is NotFound. File not found: my-drive. - 18.09.2024 18:19:46
-Dosya başarıyla yüklendi. - 19.09.2024 09:13:27
+AccessToken başarıyla kaydedildi. - 19.09.2024 11:38:38
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth10(4).rar - 19.09.2024 11:38:43
+Yükleme sırasında bir hata oluştu. Status: Failed, Hata mesajı: The service drive has thrown an exception. HttpStatusCode is Forbidden. Request had insufficient authentication scopes. - 19.09.2024 11:38:43
+AccessToken başarıyla kaydedildi. - 19.09.2024 11:45:32
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth10(5).rar - 19.09.2024 11:45:41
+Yükleme sırasında bir hata oluştu. Status: Failed, Hata mesajı: The service drive has thrown an exception. HttpStatusCode is Forbidden. Request had insufficient authentication scopes. - 19.09.2024 11:45:41
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth10(6).rar - 19.09.2024 11:46:04
+Yükleme sırasında bir hata oluştu. Status: Failed, Hata mesajı: The service drive has thrown an exception. HttpStatusCode is Forbidden. Request had insufficient authentication scopes. - 19.09.2024 11:46:05
+AccessToken başarıyla kaydedildi. - 19.09.2024 11:46:44
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth10(7).rar - 19.09.2024 11:46:55
+Yükleme sırasında bir hata oluştu. Status: Failed, Hata mesajı: The service drive has thrown an exception. HttpStatusCode is Forbidden. Request had insufficient authentication scopes.
+ - 19.09.2024 11:46:56
+AccessToken başarıyla kaydedildi. - 19.09.2024 11:52:01
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth10(8).rar - 19.09.2024 11:52:12
+Yükleme sırasında bir hata oluştu. Status: Failed, Hata mesajı: The service drive has thrown an exception. HttpStatusCode is Forbidden. Request had insufficient authentication scopes. - 19.09.2024 11:52:12
+AccessToken başarıyla kaydedildi. - 19.09.2024 11:55:03
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth11.rar - 19.09.2024 11:55:09
+Yükleme sırasında bir hata oluştu. Status: Failed, Hata mesajı: The service drive has thrown an exception. HttpStatusCode is Forbidden. Request had insufficient authentication scopes. - 19.09.2024 11:55:09
+AccessToken başarıyla kaydedildi. - 19.09.2024 11:56:09
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth11(1).rar - 19.09.2024 11:56:19
+Dosya başarıyla yüklendi. - 19.09.2024 11:56:21
+AccessToken başarıyla kaydedildi. - 19.09.2024 12:05:54
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth11(2).rar - 19.09.2024 12:05:58
+ya29.a0AcM612xYdcDLrsvyaVS3CqApj6Q3sKzyx_lt5-mohVdBjP9nQBcaF5Na_z1KYNJWjUHpRU6y_3DnB3qAF-P8f7dLMNwBgEVXNUcg4y-IsJrKO1YpdxEWyXAzepp4tWvELpYSxWdkAs-HvaKl6FMmH98SMBPRGpN8fK9LAKu-aCgYKAWcSARASFQHGX2Mi2fhdhG_sUbQusuEEr76WyA0175 - 19.09.2024 12:05:58
+Yükleme sırasında bir hata oluştu. Status: Failed, Hata mesajı: The service drive has thrown an exception. HttpStatusCode is Forbidden. Request had insufficient authentication scopes. - 19.09.2024 12:05:58
+AccessToken başarıyla kaydedildi. - 19.09.2024 12:12:43
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth11(3).rar - 19.09.2024 12:12:45
+ya29.a0AcM612zUSY8GvMi6bFvz6QVV1tO8dSzNUchrjIW1WS1NTVnD9YPw5Rja2qYLamzxnfAd4BvgzFetovTSjpCQ9kq_Vutwyca20EuVcMA3XfZTXBAQ5HC8THa8z9RDgwey9jT13ECWvu8Adu2enB0eWd9zNY5kE6Lty9VbhXdWaCgYKAaISARISFQHGX2MiAOJxBBKE6XTI7rQqYnqSug0175 - 19.09.2024 12:12:45
+Yükleme sırasında bir hata oluştu. Status: Failed, Hata mesajı: The service drive has thrown an exception. HttpStatusCode is Forbidden. Request had insufficient authentication scopes. - 19.09.2024 12:12:45
+AccessToken başarıyla kaydedildi. - 19.09.2024 12:16:04
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth11(4).rar - 19.09.2024 12:16:07
+Dosya başarıyla yüklendi. - 19.09.2024 12:16:09
+AccessToken başarıyla kaydedildi. - 19.09.2024 12:16:51
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth12.rar - 19.09.2024 12:16:54
+Dosya başarıyla yüklendi. - 19.09.2024 12:16:56
+AccessToken başarıyla kaydedildi. - 19.09.2024 12:17:25
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth13.rar - 19.09.2024 12:17:29
+Dosya başarıyla yüklendi. - 19.09.2024 12:17:31
+AccessToken başarıyla kaydedildi. - 19.09.2024 12:19:43
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth15.rar - 19.09.2024 12:19:49
+Dosya başarıyla yüklendi. - 19.09.2024 12:19:51
+Dosyalar zip ile başarıyla sıkıştırıldı ve kaydedildi: C:\Users\Lenovo\Downloads\Foto\Auth15.zip - 19.09.2024 12:20:09
+Dosya başarıyla yüklendi. - 19.09.2024 12:20:11
+AccessToken başarıyla kaydedildi. - 19.09.2024 13:35:42
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth16.rar - 19.09.2024 13:35:49
+Dosya başarıyla yüklendi. - 19.09.2024 13:35:51
+Dosyalar zip ile başarıyla sıkıştırıldı ve kaydedildi: C:\Users\Lenovo\Downloads\Foto\Auth16.zip - 19.09.2024 13:36:07
+Dosya başarıyla yüklendi. - 19.09.2024 13:36:09
+AccessToken başarıyla kaydedildi. - 19.09.2024 13:38:20
+AccessToken başarıyla kaydedildi. - 19.09.2024 13:39:19
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth17.rar - 19.09.2024 13:39:49
+Dosya başarıyla yüklendi. - 19.09.2024 13:39:51
+AccessToken başarıyla kaydedildi. - 19.09.2024 13:40:48
+RAR sıkıştırma işlemi tamamlandı: C:\Users\Lenovo\Downloads\Foto\Auth18.rar - 19.09.2024 13:40:55
+Dosya başarıyla yüklendi. - 19.09.2024 13:40:56

@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings>
-  <Kaynaklar>C:\Users\Lenovo\Desktop\Emre Demirci (CVENG).pdf</Kaynaklar>
-  <Hedefler>C:\Users\Lenovo\Downloads\Benim Klasörüm</Hedefler>
-  <FileName>Auth3</FileName>
+  <Kaynaklar>C:\Users\Lenovo\Desktop\Emre Demirci (CVENG).pdf;C:\Users\Lenovo\Desktop\resim_2022-09-28_193539299.jpg;C:\Users\Lenovo\Desktop\pp.jpg</Kaynaklar>
+  <Hedefler>C:\Users\Lenovo\Downloads\Foto</Hedefler>
+  <FileName>Auth18</FileName>
   <ServisSure>300000</ServisSure>
   <SikistirmaTuru>rar</SikistirmaTuru>
-  <AccessToken>ya29.a0AcM612xuXna6B4ZxYm-1IdM3Vy2pFvcSwlcF_x9ByB0lda0_JQEHJmtoSOtMdggEFNUl88328I6Vk6Qgun5dYfwnHb2G7lrhMUQm5tcB941YK_3ruYgzud8vdS4gepNfeISBUOPvJrcML39cOewjqe8AQzqHU63SpgsMhYShaCgYKAfgSARASFQHGX2MiEOhaxF4BUzYe73yHHElyvw0175</AccessToken>
 </Settings>

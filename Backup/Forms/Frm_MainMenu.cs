@@ -16,8 +16,10 @@ namespace Backup
         private string saveFolderPath = string.Empty;
         ContextMenuStrip kaynakDropdownMenu = new ContextMenuStrip();
         ContextMenuStrip hedefDropdownMenu = new ContextMenuStrip();
+
         private List<string> kaynakSelectedItems = new List<string>(); // Kaynak Dosya ve klasörleri tutacak liste
         private List<string> hedefSelectedItems = new List<string>(); // Hedef Dosya ve klasörleri tutacak liste
+        private string fileName;
         string servisSuresi;
         private string serviceName = "AAAAA_Backup";  // Servis adınızı buraya yazın
 
@@ -29,7 +31,7 @@ namespace Backup
             InitializeComponent();
             comboBox1.SelectedIndex = 0;
 
-            ;
+            
         }
         
 
@@ -42,9 +44,40 @@ namespace Backup
             radio_rar.Checked = true;
             //cmb_sikistirmaTuru.SelectedIndex = 0;
             // Ayarları yükle
-            LoadSettings();
+
+            LoadXmlDatas();
+
+
+
             toolTip1.SetToolTip(picture_infoDrive, "Drive'da bir klasör oluşturun ve https://drive.google.com/drive/u/0/folders/{FOLDER_ID} kısmındaki folder_ID yi aşağı yazınız.\nAynı zamanda bu klasorü erişim iznini klasör özellikleri / paylaş / genel erişim kısmından Bağlantıya Sahip olan herkes ve rol olarak da düzenleyen verilmesi gerekir.");
             Start();
+        }
+        void LoadXmlDatas()
+        {
+            XmlDetaylar.LoadSettings(out fileName, out kaynakSelectedItems, out hedefSelectedItems);
+
+
+
+            listBox1.Items.Clear();
+            listBox1.Items.AddRange(kaynakSelectedItems.ToArray());
+
+            listBox2.Items.Clear();
+            listBox2.Items.AddRange(hedefSelectedItems.ToArray());
+
+            txt_dosyaAdi.Text = fileName;
+
+        }
+        void SaveXmlDatas()
+        {
+            string compressionType;
+            if (radio_rar.Checked)
+                compressionType = "rar";
+            else
+                compressionType = "zip";
+
+            fileName = txt_dosyaAdi.Text;
+            XmlDetaylar.SaveSettings(kaynakSelectedItems,hedefSelectedItems,fileName,servisSuresi,compressionType);
+
         }
         void Start()
         {
@@ -52,12 +85,11 @@ namespace Backup
             {
                 MessageBox.Show("Login var:\n" + _login.accessToken);
             }
-            else { }
-            // Giriş işlemi sonrası accessToken alınması
+            //Giriş işlemi sonrası accessToken alınması
             //string accessToken = await _login.GetAccessToken(_login.accessToken);
 
-            // AccessToken'ı XML'e kaydet
-            SaveAccessTokenToXml(_login.accessToken);
+            //AccessToken'ı XML'e kaydet
+            XmlDetaylar.SaveAccessTokenToXml(_login.accessToken);
         }
         private void Btn_kaynakSil_Click(object sender, EventArgs e)
         {
@@ -158,41 +190,7 @@ namespace Backup
                 groupBox_Zamanlayici.Visible = false;
             }
         }
-        private void SaveAccessTokenToXml(string accessToken)
-        {
-            string applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string parentDirectory = Directory.GetParent(applicationDirectory).Parent.FullName;
-            string parentDirectory2 = Directory.GetParent(parentDirectory).Parent.FullName;
-
-            string settingsFilePath = Path.Combine(parentDirectory2, "BackupService2", "bin", "Debug", "settings.xml");
-
-            // Eğer XML dosyası yoksa oluştur
-            XElement settings;
-            if (File.Exists(settingsFilePath))
-            {
-                settings = XElement.Load(settingsFilePath);
-                var accessTokenElement = settings.Element("AccessToken");
-
-                if (accessTokenElement != null)
-                {
-                    accessTokenElement.Value = accessToken;
-                }
-                else
-                {
-                    settings.Add(new XElement("AccessToken", accessToken));
-                }
-            }
-            else
-            {
-                settings = new XElement("Settings",
-                    new XElement("AccessToken", accessToken)
-                );
-            }
-
-            settings.Save(settingsFilePath);
-            MessageBox.Show("AccessToken başarıyla kaydedildi.");
-        }
-
+      
         private async void btn_sikistir_Click(object sender, EventArgs e)
         {
             
@@ -208,8 +206,7 @@ namespace Backup
                 return;
             }
 
-            SaveSettings();
-
+            SaveXmlDatas();
 
 
             string selectedCompressionType; //cmb_sikistirmaTuru.SelectedItem.ToString(); burayı değişmek gerek açarsak
@@ -239,31 +236,11 @@ namespace Backup
 
                 if (selectedCompressionType == "zip")
                 {
-                    // Zip sıkıştırma kodu
-                    using (ZipArchive zip = ZipFile.Open(archiveFilePath, ZipArchiveMode.Create))
-                    {
-                        foreach (string item in listBox1.Items)
-                        {
-                            if (Directory.Exists(item)) // Eğer klasörse
-                            {
-                                foreach (string filePath in Directory.GetFiles(item, "*", SearchOption.AllDirectories))
-                                {
-                                    string entryName = GetRelativePath(item, filePath); // Klasör yapısını korumak için göreceli yol
-                                    zip.CreateEntryFromFile(filePath, entryName);
-                                }
-                            }
-                            else if (File.Exists(item)) // Eğer dosyaysa
-                            {
-                                zip.CreateEntryFromFile(item, Path.GetFileName(item));
-                            }
-                        }
-                    }
-                       MessageBox.Show($"Dosyalar zip ile başarıyla sıkıştırıldı ve kaydedildi: {archiveFilePath}");
-
+                    Compression.CompressWithZip(archiveFilePath, listBox1.Items.Cast<string>().ToList());
                 }
                 else if (selectedCompressionType == "rar")
                 {
-                    CompressWithRar(archiveFilePath, listBox1.Items.Cast<string>().ToList());
+                    Compression.CompressWithRar(archiveFilePath, listBox1.Items.Cast<string>().ToList());
 
                 }
 
@@ -282,49 +259,7 @@ namespace Backup
 
 
         }
-        private void CompressWithRar(string rarFilePath, List<string> kaynaklar)
-        {
-            try
-            {
-                string applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string parentDirectory = Directory.GetParent(applicationDirectory).Parent.FullName;
-                string parentDirectory2 = Directory.GetParent(parentDirectory).Parent.FullName;
-
-                string settingsFilePath = Path.Combine(parentDirectory2, "Winrar", "Rar.exe");
-
-                //System.Windows.Forms.MessageBox.Show("settingFilePath" + settingsFilePath);
-
-                var startInfo = new ProcessStartInfo
-                {
-
-                    FileName = settingsFilePath, // WinRAR'ın tam yolu
-                    Arguments = $"a \"{rarFilePath}\" \"{string.Join("\" \"", kaynaklar)}\" -r",
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                };
-
-                using (var process = Process.Start(startInfo))
-                {
-                    string output = process.StandardOutput.ReadToEnd();
-                    string error = process.StandardError.ReadToEnd();
-                    process.WaitForExit();
-
-                    if (process.ExitCode != 0)
-                    {
-                        throw new Exception($"RAR sıkıştırma işlemi sırasında hata oluştu: {error}");
-                    }
-                    MessageBox.Show($"RAR sıkıştırma işlemi tamamlandı: {rarFilePath}");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"RAR sıkıştırma hatası: {ex.Message}");
-                //MessageBox.Show($"RAR sıkıştırma hatası: {ex.Message}");
-            }
-        }
-
+        
         private void txt_dosyaAdi_TextChanged(object sender, EventArgs e)
         {
             lbl_dosyaAdi.Text = txt_dosyaAdi.Text;
@@ -366,95 +301,7 @@ namespace Backup
         }
 
 
-        private void LoadSettings() // XML dosyasından ayarları yükler
-        {
-            // XML dosyasının proje klasöründeki yolu
-            //string settingsFilePath = @"C:\Users\Lenovo\source\repos\Backup\BackupService2\bin\Debug\settings.xml";
-
-
-            string applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string parentDirectory = Directory.GetParent(applicationDirectory).Parent.FullName;
-            string parentDirectory2 = Directory.GetParent(parentDirectory).Parent.FullName;
-
-            string settingsFilePath = Path.Combine(parentDirectory2, "BackupService2", "bin", "Debug", "settings.xml");
-
-
-            if (File.Exists(settingsFilePath))
-            {
-                var settings = XElement.Load(settingsFilePath);
-
-                // Kaynaklar ve Hedefler listelerini doldur
-                kaynakSelectedItems = new List<string>(settings.Element("Kaynaklar")?.Value.Split(';'));
-                hedefSelectedItems = new List<string>(settings.Element("Hedefler")?.Value.Split(';'));
-
-                // ListBox'ları doldur
-                listBox1.Items.Clear();
-                listBox1.Items.AddRange(kaynakSelectedItems.ToArray());
-
-                listBox2.Items.Clear();
-                listBox2.Items.AddRange(hedefSelectedItems.ToArray());
-
-                // Dosya adını yükle
-                txt_dosyaAdi.Text = settings.Element("FileName")?.Value;
-
-                //MessageBox.Show("Ayarlar başarıyla yüklendi.");
-            }
-            else
-            {
-                MessageBox.Show("Ayar dosyası bulunamadı.");
-            }
-        }
-        public static string GetRelativePath(string relativeTo, string path)
-        {
-            Uri fromUri = new Uri(relativeTo);
-            Uri toUri = new Uri(path);
-
-            if (fromUri.Scheme != toUri.Scheme) { return path; } // path can't be made relative.
-
-            Uri relativeUri = fromUri.MakeRelativeUri(toUri);
-            string relativePath = Uri.UnescapeDataString(relativeUri.ToString());
-
-            if (toUri.Scheme.Equals("file", StringComparison.InvariantCultureIgnoreCase))
-            {
-                relativePath = relativePath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
-            }
-
-            return relativePath;
-        }
-
-
-        private void SaveSettings() // Ayarları XML dosyasına kaydeder
-        {
-            // XML dosyasının proje klasöründeki yolu
-            //string settingsFilePath = @"C:\Users\Lenovo\source\repos\Backup\BackupService2\bin\Debug\settings.xml";
-
-            string applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string parentDirectory = Directory.GetParent(applicationDirectory).Parent.FullName;
-            string parentDirectory2 = Directory.GetParent(parentDirectory).Parent.FullName;
-
-            string settingsFilePath = Path.Combine(parentDirectory2, "BackupService2", "bin", "Debug", "settings.xml");
-
-
-            string Type;
-            if (radio_rar.Checked)
-                Type = "rar";
-            else
-                Type = "zip";
-
-            var settings = new XElement("Settings",
-                new XElement("Kaynaklar", string.Join(";", kaynakSelectedItems)),
-                new XElement("Hedefler", string.Join(";", hedefSelectedItems)),
-                new XElement("FileName", txt_dosyaAdi.Text),
-                new XElement("ServisSure", servisSuresi),
-                new XElement("SikistirmaTuru", Type)
-            );
-
-            // Ayarları XML dosyasına kaydet
-            settings.Save(settingsFilePath);
-            MessageBox.Show("Ayarlar başarıyla kaydedildi.");
-        }
-
-        private void KlasorSikistir()
+              private void KlasorSikistir()
         {
             if (string.IsNullOrEmpty(saveFolderPath))
             {

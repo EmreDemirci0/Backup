@@ -22,16 +22,30 @@ namespace Backup
         {
             InitializeComponent();
         }
+        private void Logout()
+        {
+            // Erişim jetonunu sıfırla
+            accessToken = null;
 
+            // Kullanıcıya bilgi ver
+            MessageBox.Show("Çıkış yapıldı. Yeniden giriş yapın.");
+        }
 
         private async void btnLogin_Click(object sender, EventArgs e)
         {
+            if (!string.IsNullOrEmpty(accessToken))
+            {
+                Logout();
+            }
             try
             {
-                // Yetkilendirme URL'sini oluştur
+                string scope = "https://www.googleapis.com/auth/userinfo.profile " +
+               "https://www.googleapis.com/auth/userinfo.email " +
+               "https://www.googleapis.com/auth/drive.file " +
+               "https://www.googleapis.com/auth/drive";
+
                 string authorizationUrl = $"https://accounts.google.com/o/oauth2/v2/auth?" +
-                                          $"scope=https://www.googleapis.com/auth/userinfo.profile " +
-                                          $"https://www.googleapis.com/auth/userinfo.email&" + // email erişim yetkisi eklendi
+                                          $"scope={scope}&" +
                                           $"access_type=offline&" +
                                           $"include_granted_scopes=true&" +
                                           $"response_type=code&" +
@@ -45,8 +59,8 @@ namespace Backup
                 string authCode = Microsoft.VisualBasic.Interaction.InputBox("Google yetkilendirme kodunu girin:", "Yetkilendirme Kodu");
 
                 // Yetkilendirme kodunu kullanarak erişim jetonunu alın
-                 accessToken = await GetAccessToken(authCode);
-                
+                accessToken = await GetAccessToken(authCode);
+
                 // Erişim jetonunu kullanarak kullanıcı bilgilerini al
                 await GetUserInfo(accessToken);
             }
@@ -59,10 +73,12 @@ namespace Backup
 
         public async Task<string> GetAccessToken(string authCode)
         {
-            using (var client = new HttpClient())
+            try
             {
-                var requestBody = new FormUrlEncodedContent(new[]
+                using (var client = new HttpClient())
                 {
+                    var requestBody = new FormUrlEncodedContent(new[]
+                    {
                     new KeyValuePair<string, string>("code", authCode),
                     new KeyValuePair<string, string>("client_id", clientId),
                     new KeyValuePair<string, string>("client_secret", clientSecret),
@@ -70,13 +86,19 @@ namespace Backup
                     new KeyValuePair<string, string>("grant_type", "authorization_code"),
                 });
 
-                var response = await client.PostAsync("https://oauth2.googleapis.com/token", requestBody);
-                response.EnsureSuccessStatusCode();
+                    var response = await client.PostAsync("https://oauth2.googleapis.com/token", requestBody);
+                    response.EnsureSuccessStatusCode();
 
-                var responseString = await response.Content.ReadAsStringAsync();
-                var jsonResponse = JObject.Parse(responseString);
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var jsonResponse = JObject.Parse(responseString);
 
-                return jsonResponse["access_token"].ToString();
+                    return jsonResponse["access_token"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Token alma sırasında hata: {ex.Message}");
+                throw;
             }
         }
 
@@ -91,7 +113,7 @@ namespace Backup
             var userInfo = await oauthService.Userinfo.Get().ExecuteAsync();
 
             // Kullanıcı bilgilerini ekranda göster
-            MessageBox.Show($"Giriş Başarılı!\nKullanıcı: {userInfo.Name}\nEmail: {userInfo.Email}"+accessToken);
+            MessageBox.Show($"Giriş Başarılı!\nKullanıcı: {userInfo.Name}\nEmail: {userInfo.Email}\n" + accessToken);
             Frm_MainMenu frm_MainMenu = new Frm_MainMenu(this);
             frm_MainMenu.Show();
         }
