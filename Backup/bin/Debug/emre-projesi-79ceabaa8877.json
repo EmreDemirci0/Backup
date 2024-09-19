@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "emre-projesi",
+  "private_key_id": "79ceabaa8877ca5c407afe0e16b5fd120e722294",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDM2/qNEJyfrfu5\nLoE4TzTXn0mtHn2gqISY0efk6reZDpPp/crV8P2rDaa428F0WemwvGMgJ9Q33CW+\nBQWmyqAoT25tkivMgbrFVtEH96U4hlPEBP8S7elwuE4iJ9d0PeGM7Kkdr3jMKujf\nncA5XkdH6VtfhRzRtwgiEyFsrZSp93UalcMtIjaiUnAe79wobkG7iuXgC2m4M+F/\nXvk3B2MVL9iQ+Al4Wiw/hGwwIkLl1rkMdHlFLLH7YT+NFSABebziG4UPmbn7mYo6\n9KiI3S9Ul6DB7TAzDiQx04uv/PwKcSQuxgyWOLbBcJv3JaJaqXMo0ei9JKpT9s3j\nbSyrwsA9AgMBAAECggEACYmrYGJ33FJaICzLXN8JL4nNwRbkk/SMmd3Z/VU1P5XH\narNDfJL4CHz9+GjY2K0v/WfD+LUKAyDHjBGJShLwgnfyRP0zd1XJ55KrcELGKTvN\nzhhKdOvpPLOEBcCTniicZfaFyClJhz3vMiwSzUj3qiAx/iBBL31lTkrUOU5al9Al\neNBS/G7/pZIog54M50nHWsvY1WmsxsqcHGDRJ1zy42uG9VbLGXj2pA5m2qj6FlwI\nfThOVikXRP2Eym3SmuhZi45CuJgLXqb5WKcYgb/VNuhxnFYRQ8jFyq1QnBcejQWr\nJPOjoyf2NOvdmkHOjgradOobFTHTMUX4/PK5+uLekQKBgQD4qKQ0KtdJ5x8KelkN\nlDEkARJzRxYvSXQSfelp13Pnm6H/i7dp0PRyeKL9aZPyki3tvqUAtIpSeVgg62w/\nfpdvFd8gb7MG7r9bXjWiC38QdfQ+M1gvTF07sZN1wlaC9ut/HyY8kwHjaX/heH2m\n1D8PBU4S6f9g/vkWqj6TgFIMDQKBgQDS6E08eL1mS+x5MIIKOXxNRb+lm5777g5e\nRBpWSQT0/nrVZy9C8WmzkQ4d9CYW07j/41ZmAUFT3Cl7QvKvaRFKuO8pLDOjiH36\nHtfjaVmXz/aiG9VzhWKEqgYLcuKjbxSeEPa/GldeiyJf1JkwoB4gSHe7n23T17xF\n0XFODHkI8QKBgQDSGEMtJKlkcthCVR+bHoPqpNE+/2gaKhjdau9lkzoGDfRxY05k\nJL31XkJwlN0BTktqHfNyRhi9GHPC1MdQWph+rl8pG9eK2vxpqY7tTINemBr21xEC\nXaZEwoQSMlJAM3rEnMAE3DzzNXdsPQ8Ffz2MZnIR/w3cmXJCmTNoEzq/nQKBgG7o\nJ8139Kk5nbWw84Eq75m25uvQZQ84BSg/CdZ7+XZX6AIWi7zZNGtwCQtpWyo/1hYB\n12o2mMLfkJS4BOSHDMfNbj6pdtI1MYH4/DAjMzDo9FoU5u8jokX/HsSgelvVSvNA\nGnEuCem2orHgG1p9qLnzQbtRQDDZTrEsTTfsyS0RAoGBAJGpsy9K/IBHxACTzInV\ngbxfp4otWtuR0T+lwDSmXe1vz/jrpOgZu4hPllXashkqjFXhHx9DtGmKwtHoRQbH\nMaC7YuPeeFSQXo6kFcRwh9C2v+EgL0Yn4L2cDWVqijc33WqXHUZEKkC1F8jh7QZq\nI/x/mmKzQNv83u28VEtnM0wT\n-----END PRIVATE KEY-----\n",
+  "client_email": "yunus-emre-demirci@emre-projesi.iam.gserviceaccount.com",
+  "client_id": "104521540145550661900",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/yunus-emre-demirci%40emre-projesi.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

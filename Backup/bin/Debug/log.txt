@@ -1,0 +1,19 @@
+Google Drive yükleme hatası: 'C:\Users\Lenovo\Downloads\Benim Klasörüm\Auth1(3).rar' dosyası bulunamadı. - 18.09.2024 17:29:21
+Dosya başarıyla yüklendi. - 18.09.2024 17:35:14
+Yükleme sırasında bir hata oluştu. - 18.09.2024 17:37:01
+Yükleme sırasında bir hata oluştu. Status: Failed, Hata mesajı: The service drive has thrown an exception. HttpStatusCode is Forbidden. Request had insufficient authentication scopes. - 18.09.2024 17:41:15
+Yükleme sırasında bir hata oluştu. Status: Failed, Hata mesajı: The service drive has thrown an exception. HttpStatusCode is Forbidden. Request had insufficient authentication scopes. - 18.09.2024 17:50:02
+Google Drive yükleme hatası: 'C:\Users\Lenovo\source\repos\Backup\Backup\bin\Debug\client_secret.json' dosyası bulunamadı. - 18.09.2024 17:54:03
+Google Drive yükleme hatası: 'C:\Users\Lenovo\source\repos\Backup\Backup\bin\Debug\client_secret.json' dosyası bulunamadı. - 18.09.2024 17:54:51
+Google Drive yükleme hatası: 'C:\Users\Lenovo\source\repos\Backup\Backup\bin\Debug\client_secret.json' dosyası bulunamadı. - 18.09.2024 17:55:56
+Dosya başarıyla yüklendi. - 18.09.2024 18:04:08
+Dosya başarıyla yüklendi. - 18.09.2024 18:05:00
+Dosya başarıyla yüklendi. - 18.09.2024 18:05:32
+Dosya başarıyla yüklendi. - 18.09.2024 18:06:36
+Dosya başarıyla yüklendi. - 18.09.2024 18:07:59
+Dosya başarıyla yüklendi. - 18.09.2024 18:11:56
+Dosya başarıyla yüklendi. - 18.09.2024 18:13:47
+Dosya başarıyla yüklendi. - 18.09.2024 18:16:06
+Dosya başarıyla yüklendi. - 18.09.2024 18:17:13
+Yükleme sırasında bir hata oluştu. Status: Failed, Hata mesajı: The service drive has thrown an exception. HttpStatusCode is NotFound. File not found: my-drive. - 18.09.2024 18:19:46
+Dosya başarıyla yüklendi. - 19.09.2024 09:13:27

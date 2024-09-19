@@ -1,0 +1,127 @@
+     SON KULLANICI LÝSANS SÖZLEÞMESÝ
+
+     RAR (ve bunun Windows sürümü WinRAR) arþivleyici ile ilgili
+     aþaðýdaki sözleþme; win.rar GmBH ("lisans saðlayýcý") ve yazýlýmý
+     yükleyen, ona eriþen veya herhangi bir yolla kullanan "kullanýcý"
+     arasýnda yapýlmaktadýr.
+
+  1. Yazýlýmýn yapýmcýsý ve telif hakký sahibi, Alexander L. Roshal'dýr.
+     win.rar GmbH, Marienstr. 12, 10117 Berlin, Germany; lisans verendir ve bu
+     nedenle yazýlýmý herhangi bir biçimde çoðaltma, daðýtma ve halka açýk
+     hale getirme haklarý da dahil olmak üzere dünya çapýnda münhasýr kullaným
+     haklarýnýn lisansýný veren ve taþýyandýr.
+
+  2. Yazýlým, satýn almadan önce denemeniz için daðýtýlýr. Bunun anlamý, 
+     yazýlýmý herkesin en fazla 40 gün boyunca ücetsiz olarak
+     kullanabileceðidir. Kullanýcý bu deneme süresinin sonunda yazýlýmý
+     kullanmaya devam etmek için bir lisans satýn almalýdýr.
+
+  3. Yazýlýmýn deneme sürümü, daðýtým paketinin deðiþtirilmediði varsayýlarak
+     aþaðýdaki istisnalar dýþýnda ücretsiz olarak daðýtýlabilir.
+
+     a. UnRAR bileþenleri hariç, yazýlý izin olmadan paketin parçalarýný
+        hiç kimse daðýtamaz.
+
+     b. Yazýlýmýn lisanssýz deneme sürümü, diðer bir yazýlým paketinin
+        içinde yazýlý izin olmaksýzýn daðýtýlamaz. Yazýlým; deðiþtirilmemiþ
+        bir kurulum dosyasýnýn içinde kalmalý, kullanýcýnýn önüne herhangi
+        bir engel çýkarýlmadan indirmeye sunulmalýdýr (indirme için ücret
+        toplamak veya indirmek için kullanýcýnýn kiþisel bilgilerinin 
+        girmesini þart koþmak gibi).
+
+     c. WinRAR'ýn kurulum dosyasý deðiþtirilmemiþ, saf ve eþleþtirilmemiþ
+        olmalýdýr. WinRAR'ýn herhangi bir pakete dahil edilmesi yasaktýr.
+        Buna ek olarak indirme paketleri de win.rar GmBH'nin yazýlý izni
+        olmadan sunulamaz.
+
+     d. Deneme sürümünün daðýtýmcýsý tarafýndan hacklemeler veya kýrmalar,
+        anahtarlar ya da anahtar üreteçleri dahil edilemez, bunlara teþvik
+        ya da yönlendirme yapýlamaz.
+
+     e. Önceki koþullarýn ihlal edilmesi hâlinde saðlanan izinler de hemen
+        ve otomatik olarak ortadan kalkacaktýr.
+
+  4. Yazýlýmýn deneme sürümü bir hatýrlatma iletiþim kutusu gösterebilir.
+     Yazýlým sürümüne ve yapýlandýrmaya göre böyle bir iletiþim kutusu
+     önceden belirlenmiþ bir metin ve baðlantýlar veya internetten
+     yüklenen bir web sayfasý gösterebilir. Böyle bir web sayfasý, lisans
+     saðlayýcýnýn tercihine göre lisanslama talimatlarýný ve reklam dahil
+     diðer içerikleri gösterebilir. Yazýlým, bir web sayfasýný açarken
+     sadece bir web sayfasýný açabilmek için HTTP protokolünün teknik
+     olarak gerektirdiði bilgileri aktarýr.
+
+  5. Yazýlým "olduðu gibi" daðýtýlmaktadýr. Herhangi bir güvence ifade
+     ya da ima yoluyla verilmemiþtir. Yazýlýmý riski göze alarak kullanýrsýnýz.
+     Bu yazýlýmýn kullanýmý ya da kötüye kullanýmýndan kaynaklý veri kaybý,
+     zarar, kâr kaybý veya diðer türden kayýplardan ne yazarý, ne lisans veren,
+     ne de lisans verenin temsilcileri sorumlu deðildir.
+
+  6. Yazýlým için iki adet temel lisans türü sunulmuþtur. Bunlar:
+
+     a. Tek bilgisayar kullaným lisansý. Kullanýcý, tek bilgisayarda
+        kullanmak üzere tek lisans satýn alýr.
+
+        Ev kullanýcýlarý, tek bilgisayar kullaným lisanslarýný lisans
+        sahibine ait tüm bilgisayarlarda ve taþýnabilir aygýtlarýnda
+        (USB sürücüsü, taþýnabilir sabit disk, vb.) kullanabilirler.<br><br>
+
+        Ýþ kullanýcýlarý, her bilgisayar veya mobil cihaz için ayrý bir
+        lisansa ihtiyaç duyacaklardýr.
+
+     b. Çoklu kullaným lisansý. Kullanýcý, kullaným için satýcýdan veya
+        satýcýnýn çalýþanlarýndan kullanacaðý bilgisayar adedince lisans
+        satýn alýr.
+
+        Bir að ortamýnda (sunucu/istemci) kullanýcý; yazýlýmýn yüklenildiði,
+        kullanýldýðý veya eriþildiði her bir istemci (iþ istasyonu) için ayrý
+        bir lisans kopyasý satýn almalýdýr. Ýstemcilerin (iþ istasyonlarýnýn)
+        bu yazýlýmý eþ zamanlý mý ya da deðiþik zamanlarda mý kullanacaðýna
+        bakýlmaksýzýn her bir istemci (iþ istasyonu) için ayrý bir lisans
+        kopyasý gereklidir. Örneðin, aðýnýzda RAR eriþimi olan 9 adet farklý
+        istemciye (iþ istasyonuna) sahip olmak istiyorsanýz 9 adet lisans
+        kopyasý satýn almalýsýnýz.
+
+     Herhangi bir yasal gayeye dair bir lisansý satýn alan kullanýcýya satýn
+     aldýðý lisans adedince yukarýdaki lisans þartlarýnda belirtildiði þekilde
+     yazýlýmý kullanmaya münhasýr olmayan bir hak verilir.
+
+  7. Lisans ücretinin yanýnda RAR arþivlerinin, ciltlerin, kendi-ayýklanan
+     arþivlerin ve kendi-ayýklanan ciltlerin oluþturulmasý ve daðýtýlmasý ile
+     iliþkili ek lisans ücreti yoktur. Lisans sahipleri, yazýlým kopyalarýný
+     arþivler ve kendi-ayýklanan arþivler oluþturmak ve bu arþivleri herhangi
+     bir ek telif ücreti olmaksýzýn daðýtma amaçlý kullanabilirler.
+
+  8. Lisanslý yazýlýmý kiralayamazsýnýz, ancak alýcýnýn bu lisans þartlarýný
+     kabul etmesi hâlinde kalýcý olarak bütünüyle transfer edebilirsiniz.
+
+  9. Bir lisans satýn almak için yazýlým ile sunulan order.htm dosyasýna
+     göz atýn.
+
+ 10. Lisanslý programý bu belgedeki sözleþme dýþýnda kullanamaz,
+     kopyalayamaz, geliþtiremez (emulate), klonlayamaz, kontratlý ya da
+     kontratsýz kiralayamaz veya kiraya veremez, satamaz, deðiþtiremez,
+     tekrar derleyemez, kodunu açamaz (disassemble), tersine mühendislik
+     yapamaz, lisanslý programý veya herhangi bir kýsmýný transfer
+     edemezsiniz. Herhangi bir yetkisiz kullaným bu lisansýn anýnda ve
+     otomatik olarak yok olmasýna neden olacaktýr ve buna istinaden suç
+     veya sivil davalar oluþturulabilecektir.
+
+     Hiçbir þekilde WinRAR ikili kodu, UnRAR kaynaðý veya UnRAR ikili
+     kodu kullanýlamaz veya yazýlý bir izin olmadan tescilli olan RAR
+     sýkýþtýrma iþlemi algoritmasýný yeniden oluþturmak için tersine
+     mühendislik yapýlamaz.
+    
+     Yazýlým, üçüncü partiler tarafýndan geliþtirilen ya da lisanslý
+     bileþenler kullanýyor olabilir. Lütfen detaylar için WinRAR
+     yardýmýndaki Bildiriler bölümünü veya acknow.txt metin dosyasýný
+     okuyun.
+
+ 11. Bu Lisans Anlaþmasý, tamamen ve sadece Alman yasalarýna göre yorumlanýr.
+     Eðer bir satýcý iseniz, win.rar GmbH'nin bulunduðu Berlin/Almanya'daki
+     mahkemeler, bu Lisans Sözleþmesi ile ilgili tartýþmalarda veya onun
+     geçerliliðiyle ilgili tartýþmalarda yargý yetkisine sahip olacaktýr.
+
+ 12. Bu yazýlýmýn yüklenilmesi ve kullanýlmasý, lisans þartlarýnýn kabul
+     edilmesi anlamýna gelir. Bu lisans þartlarýný kabul etmiyorsanýz yazýlým
+     dosyalarýný tüm depolama alanlarýnýzdan silmeli ve yazýlýmý artýk
+     kullanmamalýsýnýz.

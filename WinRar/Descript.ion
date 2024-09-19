@@ -1,0 +1,47 @@
+7zxa.dll -----------------------------------------------: 7z sýkýþtýrmayý çözme kütüphanesi
+Descript.ion -------------------------------------------: Dosya açýklamalarý
+License.txt --------------------------------------------: Kullaným ve daðýtým lisansý
+Order.htm ----------------------------------------------: Kayýt olma bilgisi
+Rar.exe ------------------------------------------------: Konsol RAR
+Rar.txt ------------------------------------------------: Konsol RAR kýlavuzu
+RarLng.dll ---------------------------------------------: Dil kaynaklarý
+RarExt.dll ---------------------------------------------: WinRAR kabuk uzantýsý
+RarExt32.dll -------------------------------------------: 32 bit Windows için WinRAR kabuk uzantýsý
+RarExt64.dll -------------------------------------------: 64 bit Windows için WinRAR kabuk uzantýsý
+RarExtInstaller.exe ------------------------------------: WinRAR kabuk uzantýsýný yüklemek ve kaldýrmak için araç
+RarExtLogo.altform-unplated_targetsize-32.png ----------: WinRAR kabuk uzantýsý için grafik dosyasý
+RarExtLogo.altform-unplated_targetsize-48.png ----------: WinRAR kabuk uzantýsý için grafik dosyasý
+RarExtLogo.altform-unplated_targetsize-64.png ----------: WinRAR kabuk uzantýsý için grafik dosyasý
+RarExtLogo_Default.altform-unplated_targetsize-32.png --: WinRAR kabuk uzantýsý için grafik dosyasý
+RarExtLogo_Default.altform-unplated_targetsize-48.png --: WinRAR kabuk uzantýsý için grafik dosyasý
+RarExtLogo_Default.altform-unplated_targetsize-64.png --: WinRAR kabuk uzantýsý için grafik dosyasý
+RarExtPackage.msix -------------------------------------: WinRAR kabuk uzantýsý için tamamlayýcý paket
+RarFiles.lst -------------------------------------------: Katý arþivler için sýralama düzeni
+RarNew.dat ---------------------------------------------: Yeni RAR arþivi þablonu
+ZipNew.dat ---------------------------------------------: Yeni ZIP arþivi þablonu
+ReadMe.txt ---------------------------------------------: Özetle WinRAR'a genel bakýþ
+Resources.pri ------------------------------------------: WinRAR kabuk uzantýsý için tamamlayýcý dosya
+Uninstall.exe ------------------------------------------: Kaldýrma programý
+Uninstall.lst ------------------------------------------: Kaldýrma listesi dosyasý
+UnRAR.exe ----------------------------------------------: RAR arþivlerinden ayýklamak için ücretsiz bir araç
+WhatsNew.txt -------------------------------------------: Bu sürümde neler yeni
+WinRAR.exe ---------------------------------------------: WinRAR
+WinRAR.chm ---------------------------------------------: WinRAR yardým dosyasý
+Default32.SFX ------------------------------------------: 32 bit GKA RAR SFX Türkçe modülü
+Default.SFX --------------------------------------------: 64 bit GKA RAR SFX Türkçe modülü
+Zip32.SFX ----------------------------------------------: 32 bit GKA ZIP SFX Türkçe modülü
+Zip.SFX ------------------------------------------------: 64 bit GKA ZIP SFX Türkçe modülü
+WinCon32.SFX -------------------------------------------: 32 bit konsol RAR SFX Türkçe modülü
+WinCon.SFX ---------------------------------------------: 64 bit konsol RAR SFX Türkçe modülü
+Default32_Eng.SFX --------------------------------------: 32 bit GKA RAR SFX Ýngilizce modülü
+Default_Eng.SFX ----------------------------------------: 64 bit GKA RAR SFX Ýngilizce modülü
+Zip32_Eng.SFX ------------------------------------------: 32 bit GKA ZIP SFX Ýngilizce modülü
+Zip_Eng.SFX --------------------------------------------: 64 bit GKA ZIP SFX Ýngilizce modülü
+WinCon32_Eng.SFX ---------------------------------------: 32 bit konsol RAR SFX Ýngilizce modülü
+WinCon_Eng.SFX -----------------------------------------: 64 bit konsol RAR SFX Ýngilizce modülü
+RarREG.key ---------------------------------------------: RAR kayýt olma dizesi
+RarREG -------------------------------------------------: RAR kayýt olma dizesi (Uzantýsýz biçim)
+Rar.lng ------------------------------------------------: Konsol RAR arayüz dili
+RarExt.lng ---------------------------------------------: WinRAR kabuk uzantýsý arayüz dili
+Uninstall.lng ------------------------------------------: Kaldýrma programý arayüz dili
+WinRAR.lng ---------------------------------------------: WinRAR arayüz dili
