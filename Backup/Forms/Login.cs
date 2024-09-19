@@ -1,4 +1,5 @@
 ﻿using Google.Apis.Auth.OAuth2;
+using Google.Apis.Drive.v3;
 using Google.Apis.Oauth2.v2;
 using Google.Apis.Services;
 using Newtonsoft.Json.Linq;
@@ -22,21 +23,10 @@ namespace Backup
         {
             InitializeComponent();
         }
-        private void Logout()
-        {
-            // Erişim jetonunu sıfırla
-            accessToken = null;
-
-            // Kullanıcıya bilgi ver
-            MessageBox.Show("Çıkış yapıldı. Yeniden giriş yapın.");
-        }
+       
 
         private async void btnLogin_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(accessToken))
-            {
-                Logout();
-            }
             try
             {
                 string scope = "https://www.googleapis.com/auth/userinfo.profile " +
@@ -113,11 +103,12 @@ namespace Backup
             var userInfo = await oauthService.Userinfo.Get().ExecuteAsync();
 
             // Kullanıcı bilgilerini ekranda göster
-            MessageBox.Show($"Giriş Başarılı!\nKullanıcı: {userInfo.Name}\nEmail: {userInfo.Email}\n" + accessToken);
-            Frm_MainMenu frm_MainMenu = new Frm_MainMenu(this);
-            frm_MainMenu.Show();
+            //MessageBox.Show($"Giriş Başarılı!\nKullanıcı: {userInfo.Name}\nEmail: {userInfo.Email}\n" + accessToken);
+            //Frm_MainMenu frm_MainMenu = new Frm_MainMenu(this);
+            //frm_MainMenu.Show();
         }
 
+       
         private void Login_Load(object sender, EventArgs e)
         {
 

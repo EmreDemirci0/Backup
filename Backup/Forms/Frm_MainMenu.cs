@@ -1,58 +1,65 @@
-﻿using System;
+﻿using Backup.Class;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Oauth2.v2;
+using Google.Apis.Oauth2.v2.Data;
+using Google.Apis.Services;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
+using System.Net.Http;
 using System.ServiceProcess;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace Backup
 {
     public partial class Frm_MainMenu : Form
     {
-        private string saveFolderPath = string.Empty;
         ContextMenuStrip kaynakDropdownMenu = new ContextMenuStrip();
         ContextMenuStrip hedefDropdownMenu = new ContextMenuStrip();
 
         private List<string> kaynakSelectedItems = new List<string>(); // Kaynak Dosya ve klasörleri tutacak liste
         private List<string> hedefSelectedItems = new List<string>(); // Hedef Dosya ve klasörleri tutacak liste
         private string fileName;
+
+        private Dictionary<string, string> driveFolders = new Dictionary<string, string>(); // Hedef Dosya ve klasörleri tutacak liste
+        string DriveDosyaID;
+
         string servisSuresi;
         private string serviceName = "AAAAA_Backup";  // Servis adınızı buraya yazın
 
-        Login _login;
-        public Frm_MainMenu(Login login)
+        public string accessToken;
+
+
+        bool googleBaglandiMi = false;
+
+        //  Login _login;
+        public Frm_MainMenu(/*Login login*/)
         {
-            _login = login;
-
+            // _login = login;
             InitializeComponent();
+
             comboBox1.SelectedIndex = 0;
+            lbl_dosyaAdi.Text = txt_dosyaAdi.Text;
+            radio_rar.Checked = true;
+            toolTip1.SetToolTip(picture_infoDrive, "Drive'da bir klasör oluşturun ve https://drive.google.com/drive/u/0/folders/{FOLDER_ID} kısmındaki folder_ID yi aşağı yazınız.\nAynı zamanda bu klasorü erişim iznini klasör özellikleri / paylaş / genel erişim kısmından Bağlantıya Sahip olan herkes ve rol olarak da düzenleyen verilmesi gerekir.");
 
-            
         }
-        
 
-        private  void Frm_MainMenu_Load(object sender, EventArgs e)
+
+        private void Frm_MainMenu_Load(object sender, EventArgs e)
         {
             ListViewIslemleri();
             KaynakEkleIslemleri();
             HedefEkleIslemleri();
-            lbl_dosyaAdi.Text = txt_dosyaAdi.Text;
-            radio_rar.Checked = true;
-            //cmb_sikistirmaTuru.SelectedIndex = 0;
-            // Ayarları yükle
-
             LoadXmlDatas();
 
-
-
-            toolTip1.SetToolTip(picture_infoDrive, "Drive'da bir klasör oluşturun ve https://drive.google.com/drive/u/0/folders/{FOLDER_ID} kısmındaki folder_ID yi aşağı yazınız.\nAynı zamanda bu klasorü erişim iznini klasör özellikleri / paylaş / genel erişim kısmından Bağlantıya Sahip olan herkes ve rol olarak da düzenleyen verilmesi gerekir.");
-            Start();
         }
-        void LoadXmlDatas()
+        private void LoadXmlDatas()
         {
             XmlDetaylar.LoadSettings(out fileName, out kaynakSelectedItems, out hedefSelectedItems);
 
@@ -67,7 +74,7 @@ namespace Backup
             txt_dosyaAdi.Text = fileName;
 
         }
-        void SaveXmlDatas()
+        private void SaveXmlDatas()
         {
             string compressionType;
             if (radio_rar.Checked)
@@ -76,20 +83,27 @@ namespace Backup
                 compressionType = "zip";
 
             fileName = txt_dosyaAdi.Text;
-            XmlDetaylar.SaveSettings(kaynakSelectedItems,hedefSelectedItems,fileName,servisSuresi,compressionType);
+            XmlDetaylar.SaveSettings(kaynakSelectedItems, hedefSelectedItems, fileName, servisSuresi, compressionType);
 
         }
-        void Start()
+        private void SaveAccessTokenToXml()
         {
-            if (_login != null)
+            //if (_login.accessToken == null)
+            //{
+            //    Logger.WriteToLog("Login giriş kodu bulunamadı:\n" + _login.accessToken);
+            //}
+            //XmlDetaylar.SaveAccessTokenToXml(_login.accessToken);
+
+            if (accessToken == null)
             {
-                MessageBox.Show("Login var:\n" + _login.accessToken);
+                Logger.WriteToLog("Login giriş kodu bulunamadı:" + accessToken);
             }
+            XmlDetaylar.SaveAccessTokenToXml(accessToken);
+
             //Giriş işlemi sonrası accessToken alınması
             //string accessToken = await _login.GetAccessToken(_login.accessToken);
 
             //AccessToken'ı XML'e kaydet
-            XmlDetaylar.SaveAccessTokenToXml(_login.accessToken);
         }
         private void Btn_kaynakSil_Click(object sender, EventArgs e)
         {
@@ -190,10 +204,10 @@ namespace Backup
                 groupBox_Zamanlayici.Visible = false;
             }
         }
-      
+
         private async void btn_sikistir_Click(object sender, EventArgs e)
         {
-            
+
             if (listBox1.Items.Count == 0)
             {
                 MessageBox.Show("Lütfen önce dosya veya klasör ekleyin.");
@@ -249,17 +263,25 @@ namespace Backup
                 //    //GoogleDriveUploader.UploadFileToGoogleDrive(archiveFilePath);
                 //    //MessageBox.Show($"Dosya Google Drive'a yüklendi: {archiveFilePath}");
                 // Alınan accessToken ile GoogleDriveUploader sınıfını başlatın
-                GoogleDriveUploader uploader = new GoogleDriveUploader(_login.accessToken);
-                string dosyaID = txt_driveKlasorid.Text;
+                //GoogleDriveUploader uploader = new GoogleDriveUploader(_login.accessToken);                
+                GoogleDriveUploader uploader = new GoogleDriveUploader(accessToken);
                 //MessageBox.Show("Test"+ archiveFilePath);
                 // Dosyayı kullanıcının Drive'ına yükleyin
-                await uploader.UploadFileToGoogleDrive(archiveFilePath, dosyaID);
-                MessageBox.Show($"Dosya Google Drive'a yüklendi: {archiveFilePath}");
+                if (googleBaglandiMi)
+                {
+                    await uploader.UploadFileToGoogleDrive(archiveFilePath, DriveDosyaID);
+                    MessageBox.Show($"Dosya Google Drive'a ve ilgili dizine yüklendi: {archiveFilePath}");
+                }
+                else
+                {
+                    MessageBox.Show("Dosya ilgili dizine yüklendi.Google Drive Giriş Yapmadığı veya Tercih etmediği için Drive Yüklenemedi.");
+                }
+
             }
 
 
         }
-        
+
         private void txt_dosyaAdi_TextChanged(object sender, EventArgs e)
         {
             lbl_dosyaAdi.Text = txt_dosyaAdi.Text;
@@ -298,58 +320,6 @@ namespace Backup
                 servisSuresi = "6048000000";
 
 
-        }
-
-
-              private void KlasorSikistir()
-        {
-            if (string.IsNullOrEmpty(saveFolderPath))
-            {
-                MessageBox.Show("Lütfen önce kaydedilecek yeri seçin.");
-                return;
-            }
-
-            using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
-            {
-                folderBrowserDialog.Description = "Bir klasör seçin";
-                folderBrowserDialog.ShowNewFolderButton = true;
-
-                if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
-                {
-                    string selectedFolderPath = folderBrowserDialog.SelectedPath;
-                    string newFileName = !string.IsNullOrEmpty(txt_dosyaAdi.Text) ? txt_dosyaAdi.Text : Path.GetFileName(selectedFolderPath);
-
-                    // Ayarları kaydet
-                    //SaveSettings(selectedFolderPath, saveFolderPath, newFileName);
-                }
-            }
-        }
-        private void DosyaSikistir()
-        {
-            if (string.IsNullOrEmpty(saveFolderPath))
-            {
-                MessageBox.Show("Lütfen önce kaydedilecek yeri seçin.");
-                return;
-            }
-
-            OpenFileDialog openFileDialog = new OpenFileDialog
-            {
-                Title = "Bir dosya seçin",
-                CheckFileExists = true,
-                CheckPathExists = true,
-                Filter = "Tüm Dosyalar (*.*)|*.*",
-                FilterIndex = 1,
-                RestoreDirectory = true
-            };
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string selectedFilePath = openFileDialog.FileName;
-                string newFileName = !string.IsNullOrEmpty(txt_dosyaAdi.Text) ? txt_dosyaAdi.Text : Path.GetFileNameWithoutExtension(selectedFilePath);
-
-                // Ayarları kaydet
-                //SaveSettings(selectedFilePath, saveFolderPath, newFileName);
-            }
         }
         private void ListViewIslemleri()
         {
@@ -496,7 +466,143 @@ namespace Backup
             }
         }
 
-        
+        private async void DriveLoadFolder()
+        {
+            //GoogleDriveUploader gdu = new GoogleDriveUploader(_login.accessToken);
+            //var folders = await gdu.ListDriveFolders();
+
+            GoogleDriveUploader gdu = new GoogleDriveUploader(accessToken);
+            var folders = await gdu.ListDriveFolders();
+
+
+            if (folders != null)
+            {
+                // ComboBox içindeki mevcut öğeleri temizle
+                cmb_folders.Items.Clear();
+                cmb_folders.Items.Add("Root");
+
+                // Sözlüğü de temizle, böylece önceki veriler kalmaz
+                driveFolders.Clear();
+                driveFolders.Add("Root", "0");
+
+                // Klasörleri ComboBox ve Dictionary içine ekle
+                foreach (var folder in folders)
+                {
+                    // ComboBox'a ekle
+                    cmb_folders.Items.Add(new { folder.Id, folder.Name });
+
+                    // Sözlüğe ekle: Klasör Adı - Klasör ID'si
+                    driveFolders.Add(folder.Name, folder.Id);
+
+                }
+
+                // Kullanıcının seçim yapmasını sağlamak için ComboBox'ı aktif et
+                cmb_folders.DisplayMember = "Name";
+                cmb_folders.ValueMember = "Id";
+                cmb_folders.SelectedIndex = 0;  // İlk klasörü varsayılan olarak seç
+            }
+            else
+            {
+                MessageBox.Show("Drive klasörleri yüklenemedi.");
+            }
+        }
+
+        private void DriveSelectFolder()
+        {
+            if (cmb_folders.SelectedIndex == 0)
+            {
+                DriveDosyaID = "";
+            }
+            else
+            {
+                // Seçilen klasörün adını alıyoruz
+                string selectedFolderName = cmb_folders.Text;
+
+                // Sözlükten klasör ID'sini alıyoruz
+                if (driveFolders.ContainsKey(selectedFolderName))
+                {
+                    string folderId = driveFolders[selectedFolderName];
+
+                    DriveDosyaID = folderId;
+                    // Klasör adı ve ID'sini mesaj kutusunda gösteriyoruz
+                }
+                else
+                {
+                    MessageBox.Show("Klasör ID bulunamadı.");
+                }
+            }
+
+
+
+
+        }
+
+
+        private async void btn_googleGiris_Click(object sender, EventArgs e)
+        {
+            LoginGoogle loginGoogle = new LoginGoogle();
+            try
+            {
+                string scope = "https://www.googleapis.com/auth/userinfo.profile " +
+               "https://www.googleapis.com/auth/userinfo.email " +
+               "https://www.googleapis.com/auth/drive.file " +
+               "https://www.googleapis.com/auth/drive";
+
+                string authorizationUrl = $"https://accounts.google.com/o/oauth2/v2/auth?" +
+                                          $"scope={scope}&" +
+                                          $"access_type=offline&" +
+                                          $"include_granted_scopes=true&" +
+                                          $"response_type=code&" +
+                                          $"redirect_uri={loginGoogle.redirectUri}&" +
+                                          $"client_id={loginGoogle.clientId}";
+
+                // Tarayıcıyı açarak kullanıcıyı giriş ekranına yönlendir
+                Process.Start(new ProcessStartInfo(authorizationUrl) { UseShellExecute = true });
+
+                // Kullanıcıdan yetkilendirme kodunu al
+                string authCode = Microsoft.VisualBasic.Interaction.InputBox("Google yetkilendirme kodunu girin:", "Yetkilendirme Kodu");
+
+                // Yetkilendirme kodunu kullanarak erişim jetonunu alın
+                accessToken = await loginGoogle.GetAccessToken(authCode);
+
+                SaveAccessTokenToXml();
+                googleBaglandiMi = true;
+                // Erişim jetonunu kullanarak kullanıcı bilgilerini al
+                Userinfo userInfo = await loginGoogle.GetUserInfo(accessToken);
+
+
+                lbl_googleEmail.Text = userInfo.Email;
+                lbl_googleName.Text = userInfo.Name;
+                panel_googleDetaylar.Enabled = true;
+                DriveLoadFolder();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Giriş başarısız: {ex.Message}");
+            }
+        }
+
+      
+
+        private void check_saveGoogle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (check_saveGoogle.Checked)
+            {
+                panel_Google.Enabled = true;
+            }
+            else
+            {
+                panel_Google.Enabled = false;
+
+            }
+        }
+
+        private void cmb_folders_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MessageBox.Show("degisti");
+            DriveSelectFolder();
+        }
     }
 }
 

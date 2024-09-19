@@ -14,6 +14,7 @@ public class GoogleDriveUploader
     // Kullanıcı giriş yaptıktan sonra aldığınız accessToken burada olacak
     private string accessToken;
 
+    
     public GoogleDriveUploader(string accessToken)
     {
         this.accessToken = accessToken;
@@ -48,6 +49,15 @@ public class GoogleDriveUploader
                 //Parents= new List<string> { "1H62UmUsFSG5PY3TcXza6qSU_E7u0Z5At" }
                 //Parents= new List<string> { dosyaID }
             };
+
+
+            if (dosyaID != "")
+            {
+                fileMetadata.Parents = new List<string> { dosyaID };
+            }
+
+
+
             // Dosyayı Google Drive'a yükle
             using (var stream = new FileStream(filePath, FileMode.Open))
             {
@@ -57,7 +67,7 @@ public class GoogleDriveUploader
 
                 if (result.Status == Google.Apis.Upload.UploadStatus.Completed)
                 {
-                    Logger.WriteToLog("Dosya başarıyla yüklendi.");
+                    Logger.WriteToLog("Dosya Drive'a başarıyla yüklendi.");
                 }
                 else
                 {
@@ -87,5 +97,33 @@ public class GoogleDriveUploader
     //            new FileDataStore(credPath, true));
     //    }
     //}
+    public async Task<IList<Google.Apis.Drive.v3.Data.File>> ListDriveFolders()
+    {
+        try
+        {
+            // Google Drive API servisini başlat
+            var service = new DriveService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = GoogleCredential.FromAccessToken(accessToken)
+                                    .CreateScoped(new[] { DriveService.Scope.DriveReadonly }),
+                ApplicationName = "BackupService",
+            });
+
+            // Klasörleri almak için sorgu oluştur
+            FilesResource.ListRequest request = service.Files.List();
+            request.Q = "mimeType='application/vnd.google-apps.folder'";
+            request.Fields = "nextPageToken, files(id, name)";
+
+            // Klasör listesini al
+            var result = await request.ExecuteAsync();
+            return result.Files;
+        }
+        catch (Exception ex)
+        {
+            Logger.WriteToLog($"Klasörleri alırken hata oluştu: {ex.Message}");
+            return null;
+        }
+    }
+
 
 }

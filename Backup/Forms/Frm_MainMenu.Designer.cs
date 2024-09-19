@@ -35,15 +35,19 @@ namespace Backup
             this.dosyaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.groupBox_Zamanlayici = new System.Windows.Forms.GroupBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.radio_zip = new System.Windows.Forms.RadioButton();
             this.radio_rar = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox_Genel = new System.Windows.Forms.GroupBox();
+            this.picture_infoDrive = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txt_driveKlasorid = new System.Windows.Forms.TextBox();
             this.lbl_dosyaAdi = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txt_dosyaAdi = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -53,29 +57,36 @@ namespace Backup
             this.groupBox_Dosya = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btn_HedefSil = new System.Windows.Forms.Button();
+            this.btn_hedefEkle = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
+            this.Btn_kaynakSil = new System.Windows.Forms.Button();
+            this.btn_kaynakEkle = new System.Windows.Forms.Button();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.btn_servisAcKapa = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.picture_infoDrive = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btn_HedefSil = new System.Windows.Forms.Button();
-            this.btn_hedefEkle = new System.Windows.Forms.Button();
-            this.Btn_kaynakSil = new System.Windows.Forms.Button();
-            this.btn_kaynakEkle = new System.Windows.Forms.Button();
+            this.cmb_folders = new System.Windows.Forms.ComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.check_saveGoogle = new System.Windows.Forms.CheckBox();
+            this.panel_Google = new System.Windows.Forms.Panel();
+            this.panel_googleDetaylar = new System.Windows.Forms.Panel();
+            this.lbl_googleEmail = new System.Windows.Forms.Label();
+            this.lbl_googleName = new System.Windows.Forms.Label();
+            this.btn_googleGiris = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox_Zamanlayici.SuspendLayout();
-            this.groupBox_Genel.SuspendLayout();
-            this.groupBox_Dosya.SuspendLayout();
-            this.contextMenuStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.groupBox_Genel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picture_infoDrive)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox_Dosya.SuspendLayout();
+            this.contextMenuStrip2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.panel_Google.SuspendLayout();
+            this.panel_googleDetaylar.SuspendLayout();
             this.SuspendLayout();
             // 
             // klasörToolStripMenuItem
@@ -114,6 +125,26 @@ namespace Backup
             this.groupBox_Zamanlayici.TabIndex = 19;
             this.groupBox_Zamanlayici.TabStop = false;
             this.groupBox_Zamanlayici.Text = "Detaylar";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::Backup.Properties.Resources.zip;
+            this.pictureBox3.Location = new System.Drawing.Point(25, 316);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(36, 36);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 15;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Backup.Properties.Resources.winrar;
+            this.pictureBox2.Location = new System.Drawing.Point(25, 274);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(36, 36);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 14;
+            this.pictureBox2.TabStop = false;
             // 
             // radio_zip
             // 
@@ -198,6 +229,16 @@ namespace Backup
             this.groupBox_Genel.TabStop = false;
             this.groupBox_Genel.Text = "Genel";
             // 
+            // picture_infoDrive
+            // 
+            this.picture_infoDrive.Image = global::Backup.Properties.Resources.info;
+            this.picture_infoDrive.Location = new System.Drawing.Point(305, 280);
+            this.picture_infoDrive.Name = "picture_infoDrive";
+            this.picture_infoDrive.Size = new System.Drawing.Size(32, 32);
+            this.picture_infoDrive.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picture_infoDrive.TabIndex = 7;
+            this.picture_infoDrive.TabStop = false;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -225,6 +266,14 @@ namespace Backup
             this.lbl_dosyaAdi.Name = "lbl_dosyaAdi";
             this.lbl_dosyaAdi.Size = new System.Drawing.Size(0, 25);
             this.lbl_dosyaAdi.TabIndex = 3;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(9, 37);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(298, 84);
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
             // 
             // txt_dosyaAdi
             // 
@@ -312,6 +361,30 @@ namespace Backup
             this.label1.TabIndex = 15;
             this.label1.Text = "Kaynak";
             // 
+            // btn_HedefSil
+            // 
+            this.btn_HedefSil.Image = global::Backup.Properties.Resources.delete1;
+            this.btn_HedefSil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_HedefSil.Location = new System.Drawing.Point(127, 344);
+            this.btn_HedefSil.Name = "btn_HedefSil";
+            this.btn_HedefSil.Size = new System.Drawing.Size(103, 34);
+            this.btn_HedefSil.TabIndex = 14;
+            this.btn_HedefSil.Text = "Sil";
+            this.btn_HedefSil.UseVisualStyleBackColor = true;
+            this.btn_HedefSil.Click += new System.EventHandler(this.btn_HedefSil_Click);
+            // 
+            // btn_hedefEkle
+            // 
+            this.btn_hedefEkle.Image = global::Backup.Properties.Resources.icons8_file_48__1_;
+            this.btn_hedefEkle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_hedefEkle.Location = new System.Drawing.Point(18, 344);
+            this.btn_hedefEkle.Name = "btn_hedefEkle";
+            this.btn_hedefEkle.Size = new System.Drawing.Size(103, 34);
+            this.btn_hedefEkle.TabIndex = 13;
+            this.btn_hedefEkle.Text = "Ekle";
+            this.btn_hedefEkle.UseVisualStyleBackColor = true;
+            this.btn_hedefEkle.Click += new System.EventHandler(this.btn_hedefEkle_Click);
+            // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
@@ -320,6 +393,30 @@ namespace Backup
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(449, 106);
             this.listBox2.TabIndex = 12;
+            // 
+            // Btn_kaynakSil
+            // 
+            this.Btn_kaynakSil.Image = global::Backup.Properties.Resources.delete1;
+            this.Btn_kaynakSil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Btn_kaynakSil.Location = new System.Drawing.Point(127, 155);
+            this.Btn_kaynakSil.Name = "Btn_kaynakSil";
+            this.Btn_kaynakSil.Size = new System.Drawing.Size(103, 34);
+            this.Btn_kaynakSil.TabIndex = 11;
+            this.Btn_kaynakSil.Text = "Sil";
+            this.Btn_kaynakSil.UseVisualStyleBackColor = true;
+            this.Btn_kaynakSil.Click += new System.EventHandler(this.Btn_kaynakSil_Click);
+            // 
+            // btn_kaynakEkle
+            // 
+            this.btn_kaynakEkle.Image = global::Backup.Properties.Resources.icons8_file_48__1_;
+            this.btn_kaynakEkle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_kaynakEkle.Location = new System.Drawing.Point(18, 155);
+            this.btn_kaynakEkle.Name = "btn_kaynakEkle";
+            this.btn_kaynakEkle.Size = new System.Drawing.Size(103, 34);
+            this.btn_kaynakEkle.TabIndex = 10;
+            this.btn_kaynakEkle.Text = "Ekle";
+            this.btn_kaynakEkle.UseVisualStyleBackColor = true;
+            this.btn_kaynakEkle.Click += new System.EventHandler(this.btn_kaynakEkle_Click);
             // 
             // contextMenuStrip2
             // 
@@ -365,97 +462,99 @@ namespace Backup
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Drive Klasör ID";
             // 
-            // pictureBox3
+            // cmb_folders
             // 
-            this.pictureBox3.Image = global::Backup.Properties.Resources.zip;
-            this.pictureBox3.Location = new System.Drawing.Point(25, 316);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(36, 36);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 15;
-            this.pictureBox3.TabStop = false;
+            this.cmb_folders.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_folders.FormattingEnabled = true;
+            this.cmb_folders.Location = new System.Drawing.Point(8, 56);
+            this.cmb_folders.Name = "cmb_folders";
+            this.cmb_folders.Size = new System.Drawing.Size(421, 25);
+            this.cmb_folders.TabIndex = 8;
+            this.cmb_folders.SelectedIndexChanged += new System.EventHandler(this.cmb_folders_SelectedIndexChanged);
             // 
-            // pictureBox2
+            // groupBox1
             // 
-            this.pictureBox2.Image = global::Backup.Properties.Resources.winrar;
-            this.pictureBox2.Location = new System.Drawing.Point(25, 274);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(36, 36);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 14;
-            this.pictureBox2.TabStop = false;
+            this.groupBox1.Controls.Add(this.check_saveGoogle);
+            this.groupBox1.Controls.Add(this.panel_Google);
+            this.groupBox1.Location = new System.Drawing.Point(610, 556);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(478, 345);
+            this.groupBox1.TabIndex = 22;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Google Drive işlemleri";
             // 
-            // picture_infoDrive
+            // check_saveGoogle
             // 
-            this.picture_infoDrive.Image = global::Backup.Properties.Resources.info;
-            this.picture_infoDrive.Location = new System.Drawing.Point(305, 280);
-            this.picture_infoDrive.Name = "picture_infoDrive";
-            this.picture_infoDrive.Size = new System.Drawing.Size(32, 32);
-            this.picture_infoDrive.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picture_infoDrive.TabIndex = 7;
-            this.picture_infoDrive.TabStop = false;
+            this.check_saveGoogle.AutoSize = true;
+            this.check_saveGoogle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.check_saveGoogle.Location = new System.Drawing.Point(18, 24);
+            this.check_saveGoogle.Name = "check_saveGoogle";
+            this.check_saveGoogle.Size = new System.Drawing.Size(279, 32);
+            this.check_saveGoogle.TabIndex = 24;
+            this.check_saveGoogle.Text = "Google Drive Kaydedilsin mi";
+            this.check_saveGoogle.UseVisualStyleBackColor = true;
+            this.check_saveGoogle.CheckedChanged += new System.EventHandler(this.check_saveGoogle_CheckedChanged);
             // 
-            // pictureBox1
+            // panel_Google
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(9, 37);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(298, 84);
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.panel_Google.Controls.Add(this.panel_googleDetaylar);
+            this.panel_Google.Controls.Add(this.btn_googleGiris);
+            this.panel_Google.Enabled = false;
+            this.panel_Google.Location = new System.Drawing.Point(20, 77);
+            this.panel_Google.Name = "panel_Google";
+            this.panel_Google.Size = new System.Drawing.Size(438, 251);
+            this.panel_Google.TabIndex = 23;
             // 
-            // btn_HedefSil
+            // panel_googleDetaylar
             // 
-            this.btn_HedefSil.Image = global::Backup.Properties.Resources.delete1;
-            this.btn_HedefSil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_HedefSil.Location = new System.Drawing.Point(127, 344);
-            this.btn_HedefSil.Name = "btn_HedefSil";
-            this.btn_HedefSil.Size = new System.Drawing.Size(103, 34);
-            this.btn_HedefSil.TabIndex = 14;
-            this.btn_HedefSil.Text = "Sil";
-            this.btn_HedefSil.UseVisualStyleBackColor = true;
-            this.btn_HedefSil.Click += new System.EventHandler(this.btn_HedefSil_Click);
+            this.panel_googleDetaylar.Controls.Add(this.lbl_googleEmail);
+            this.panel_googleDetaylar.Controls.Add(this.cmb_folders);
+            this.panel_googleDetaylar.Controls.Add(this.lbl_googleName);
+            this.panel_googleDetaylar.Enabled = false;
+            this.panel_googleDetaylar.Location = new System.Drawing.Point(4, 69);
+            this.panel_googleDetaylar.Name = "panel_googleDetaylar";
+            this.panel_googleDetaylar.Size = new System.Drawing.Size(432, 182);
+            this.panel_googleDetaylar.TabIndex = 23;
             // 
-            // btn_hedefEkle
+            // lbl_googleEmail
             // 
-            this.btn_hedefEkle.Image = global::Backup.Properties.Resources.icons8_file_48__1_;
-            this.btn_hedefEkle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_hedefEkle.Location = new System.Drawing.Point(18, 344);
-            this.btn_hedefEkle.Name = "btn_hedefEkle";
-            this.btn_hedefEkle.Size = new System.Drawing.Size(103, 34);
-            this.btn_hedefEkle.TabIndex = 13;
-            this.btn_hedefEkle.Text = "Ekle";
-            this.btn_hedefEkle.UseVisualStyleBackColor = true;
-            this.btn_hedefEkle.Click += new System.EventHandler(this.btn_hedefEkle_Click);
+            this.lbl_googleEmail.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbl_googleEmail.Location = new System.Drawing.Point(150, 8);
+            this.lbl_googleEmail.Name = "lbl_googleEmail";
+            this.lbl_googleEmail.Size = new System.Drawing.Size(283, 35);
+            this.lbl_googleEmail.TabIndex = 15;
+            this.lbl_googleEmail.Text = "555";
+            this.lbl_googleEmail.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // Btn_kaynakSil
+            // lbl_googleName
             // 
-            this.Btn_kaynakSil.Image = global::Backup.Properties.Resources.delete1;
-            this.Btn_kaynakSil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Btn_kaynakSil.Location = new System.Drawing.Point(127, 155);
-            this.Btn_kaynakSil.Name = "Btn_kaynakSil";
-            this.Btn_kaynakSil.Size = new System.Drawing.Size(103, 34);
-            this.Btn_kaynakSil.TabIndex = 11;
-            this.Btn_kaynakSil.Text = "Sil";
-            this.Btn_kaynakSil.UseVisualStyleBackColor = true;
-            this.Btn_kaynakSil.Click += new System.EventHandler(this.Btn_kaynakSil_Click);
+            this.lbl_googleName.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbl_googleName.Location = new System.Drawing.Point(4, 8);
+            this.lbl_googleName.Name = "lbl_googleName";
+            this.lbl_googleName.Size = new System.Drawing.Size(140, 35);
+            this.lbl_googleName.TabIndex = 14;
+            this.lbl_googleName.Text = "label7";
+            this.lbl_googleName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btn_kaynakEkle
+            // btn_googleGiris
             // 
-            this.btn_kaynakEkle.Image = global::Backup.Properties.Resources.icons8_file_48__1_;
-            this.btn_kaynakEkle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_kaynakEkle.Location = new System.Drawing.Point(18, 155);
-            this.btn_kaynakEkle.Name = "btn_kaynakEkle";
-            this.btn_kaynakEkle.Size = new System.Drawing.Size(103, 34);
-            this.btn_kaynakEkle.TabIndex = 10;
-            this.btn_kaynakEkle.Text = "Ekle";
-            this.btn_kaynakEkle.UseVisualStyleBackColor = true;
-            this.btn_kaynakEkle.Click += new System.EventHandler(this.btn_kaynakEkle_Click);
+            this.btn_googleGiris.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btn_googleGiris.Image = global::Backup.Properties.Resources.google;
+            this.btn_googleGiris.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_googleGiris.Location = new System.Drawing.Point(3, 3);
+            this.btn_googleGiris.Name = "btn_googleGiris";
+            this.btn_googleGiris.Size = new System.Drawing.Size(433, 60);
+            this.btn_googleGiris.TabIndex = 11;
+            this.btn_googleGiris.Text = "Google ile Hesabını Bağla";
+            this.btn_googleGiris.UseVisualStyleBackColor = true;
+            this.btn_googleGiris.Click += new System.EventHandler(this.btn_googleGiris_Click);
             // 
             // Frm_MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1272, 547);
+            this.ClientSize = new System.Drawing.Size(1276, 913);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btn_servisAcKapa);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox_Zamanlayici);
@@ -470,15 +569,19 @@ namespace Backup
             this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox_Zamanlayici.ResumeLayout(false);
             this.groupBox_Zamanlayici.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.groupBox_Genel.ResumeLayout(false);
             this.groupBox_Genel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picture_infoDrive)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox_Dosya.ResumeLayout(false);
             this.groupBox_Dosya.PerformLayout();
             this.contextMenuStrip2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picture_infoDrive)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.panel_Google.ResumeLayout(false);
+            this.panel_googleDetaylar.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -521,5 +624,13 @@ namespace Backup
         private System.Windows.Forms.TextBox txt_driveKlasorid;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.PictureBox picture_infoDrive;
+        private System.Windows.Forms.ComboBox cmb_folders;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btn_googleGiris;
+        private System.Windows.Forms.Label lbl_googleEmail;
+        private System.Windows.Forms.Label lbl_googleName;
+        private System.Windows.Forms.Panel panel_Google;
+        private System.Windows.Forms.CheckBox check_saveGoogle;
+        private System.Windows.Forms.Panel panel_googleDetaylar;
     }
 }
