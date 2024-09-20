@@ -1,5 +1,6 @@
 ﻿using Backup.Class;
 using Google.Apis.Auth.OAuth2;
+using Google.Apis.Drive.v3;
 using Google.Apis.Oauth2.v2;
 using Google.Apis.Oauth2.v2.Data;
 using Google.Apis.Services;
@@ -12,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.ServiceProcess;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -22,29 +24,39 @@ namespace Backup
         ContextMenuStrip kaynakDropdownMenu = new ContextMenuStrip();
         ContextMenuStrip hedefDropdownMenu = new ContextMenuStrip();
 
-        private List<string> kaynakSelectedItems = new List<string>(); // Kaynak Dosya ve klasörleri tutacak liste
-        private List<string> hedefSelectedItems = new List<string>(); // Hedef Dosya ve klasörleri tutacak liste
         private string fileName;
-
+        private List<string> kaynakSelectedItems = new List<string>();
+        private List<string> hedefSelectedItems = new List<string>();
+        string servisSuresi;
+        bool isSaveDrive = false;
+        string DosyaID;
         private Dictionary<string, string> driveFolders = new Dictionary<string, string>(); // Hedef Dosya ve klasörleri tutacak liste
         string DriveDosyaID;
+        CompressionType myCompressionType;
+        string mail;
 
-        string servisSuresi;
-        private string serviceName = "AAAAA_Backup";  // Servis adınızı buraya yazın
+
+
+
+        private string serviceName = "2AAAAA_Backup";  // Servis adınızı buraya yazın
 
         public string accessToken;
 
 
-        bool isSaveDrive = false;//burayı kontrol edeceğiz. Her an her şey olabilir//???////////////////////////////////
-        bool isSession=false;
+      //burayı kontrol edeceğiz. Her an her şey olabilir//???////////////////////////////////
+        bool isSession = false;
         LoginGoogle loginGoogle;
 
-        //  Login _login;
-        public Frm_MainMenu(/*Login login*/)
-        {
-            // _login = login;
-            InitializeComponent();
 
+
+      
+
+        public Frm_MainMenu()
+        {
+            //XmlDetaylar.GetAccessToken();
+
+
+            InitializeComponent();
             comboBox1.SelectedIndex = 0;
             lbl_dosyaAdi.Text = txt_dosyaAdi.Text;
             radio_rar.Checked = true;
@@ -63,7 +75,7 @@ namespace Backup
         }
         private void LoadXmlDatas()
         {
-            XmlDetaylar.LoadSettings(out fileName, out kaynakSelectedItems, out hedefSelectedItems, out isSaveDrive);
+            XmlDetaylar.LoadSettings(out fileName, out kaynakSelectedItems, out hedefSelectedItems,out servisSuresi, out isSaveDrive,out DosyaID, out myCompressionType, out mail);
 
 
 
@@ -74,41 +86,30 @@ namespace Backup
             listBox2.Items.AddRange(hedefSelectedItems.ToArray());
 
             txt_dosyaAdi.Text = fileName;
-
+            txt_mail.Text=mail;
+            if (myCompressionType == CompressionType.rar)
+                radio_rar.Checked = true;
+            else if (myCompressionType == CompressionType.zip)
+                radio_zip.Checked = true;
+            else if (myCompressionType == CompressionType.folder)
+                radio_folder.Checked = true;
             check_saveGoogle.Checked = isSaveDrive;
             panel_Google.Enabled = isSaveDrive;
 
         }
         private void SaveXmlDatas()
         {
-            string compressionType;
             if (radio_rar.Checked)
-                compressionType = "rar";
-            else
-                compressionType = "zip";
+                myCompressionType = CompressionType.rar;
+            else if (radio_zip.Checked)
+                myCompressionType = CompressionType.zip;
+            else if (radio_folder.Checked)
+                myCompressionType = CompressionType.folder;
 
             fileName = txt_dosyaAdi.Text;
-            XmlDetaylar.SaveSettings(kaynakSelectedItems, hedefSelectedItems, fileName, servisSuresi, compressionType, isSaveDrive);
 
-        }
-        private void SaveAccessTokenToXml()
-        {
-            //if (_login.accessToken == null)
-            //{
-            //    Logger.WriteToLog("Login giriş kodu bulunamadı:\n" + _login.accessToken);
-            //}
-            //XmlDetaylar.SaveAccessTokenToXml(_login.accessToken);
+            XmlDetaylar.SaveSettings(fileName,kaynakSelectedItems, hedefSelectedItems,servisSuresi , isSaveDrive, DosyaID,myCompressionType,mail);
 
-            if (accessToken == null)
-            {
-                Logger.WriteToLog("Login giriş kodu bulunamadı:" + accessToken);
-            }
-            XmlDetaylar.SaveAccessTokenToXml(accessToken);
-
-            //Giriş işlemi sonrası accessToken alınması
-            //string accessToken = await _login.GetAccessToken(_login.accessToken);
-
-            //AccessToken'ı XML'e kaydet
         }
         private void Btn_kaynakSil_Click(object sender, EventArgs e)
         {
@@ -151,6 +152,7 @@ namespace Backup
             catch (Exception ex)
             {
                 MessageBox.Show($"Eğer çalışmazsa Projeyi Yönetici olarak Çalıştır.\nServis başlatılırken bir hata oluştu: {ex.Message}");
+                Logger.WriteToMailLog($"Eğer çalışmazsa Projeyi Yönetici olarak Çalıştırınız.\nServis başlatılırken bir hata oluştu: {ex.Message}");
             }
         }
         private void btn_HedefSil_Click(object sender, EventArgs e)
@@ -203,7 +205,7 @@ namespace Backup
                         groupbox_drive.Visible = false;
 
                         break;
-                    case 3: // Eğer 3. öğe seçildiyse (index 2)
+                    case 3: // Eğer 4. öğe seçildiyse (index 3)
                         groupBox_Genel.Visible = false;
                         groupBox_Dosya.Visible = false;
                         groupBox_Zamanlayici.Visible = false;
@@ -221,13 +223,17 @@ namespace Backup
                 groupBox_Zamanlayici.Visible = false;
             }
         }
-
-        private async void btn_sikistir_Click(object sender, EventArgs e)
+        private void btn_saveSettings_Click(object sender, EventArgs e)
         {
-
+            SaveXmlDatas();
+            Logger.WriteToMailLog("Başarılı bir şekilde kaydettin");
+            MessageBox.Show("Ayarlar Kaydedildi.");
+        }
+        private async void btn_manuelSikistir_Click(object sender, EventArgs e)
+        {
             if (listBox1.Items.Count == 0)
             {
-                MessageBox.Show("Lütfen önce dosya veya klasör ekleyin.");
+                MessageBox.Show("Lütfen önce Kaynak dosya veya klasör ekleyin.");
                 return;
             }
 
@@ -240,11 +246,12 @@ namespace Backup
             SaveXmlDatas();
 
 
-            string selectedCompressionType; //cmb_sikistirmaTuru.SelectedItem.ToString(); burayı değişmek gerek açarsak
             if (radio_rar.Checked)
-                selectedCompressionType = "rar";
-            else
-                selectedCompressionType = "zip";
+                myCompressionType = CompressionType.rar;
+            else if (radio_zip.Checked)
+                myCompressionType = CompressionType.zip;
+            else if (radio_folder.Checked)
+                myCompressionType = CompressionType.folder;
 
             foreach (string hedefFolderPath in listBox2.Items)
             {
@@ -254,39 +261,60 @@ namespace Backup
                     continue; // Geçerli olmayan hedef klasörü atla
                 }
 
-                string archiveFilePath = Path.Combine(hedefFolderPath, $"{txt_dosyaAdi.Text}.{selectedCompressionType.ToLower()}");
+                string archiveFilePath = "";
+                if (myCompressionType != CompressionType.folder)
+                {
+                    archiveFilePath = Path.Combine(hedefFolderPath, $"{txt_dosyaAdi.Text}.{myCompressionType.ToString().ToLower()}");
+                }
+                else
+                {
+                    archiveFilePath = Path.Combine(hedefFolderPath, $"{txt_dosyaAdi.Text}");
+                }
 
                 // Aynı isimde dosya varsa numaralandır
                 int count = 1;
-                while (File.Exists(archiveFilePath))
+                while (File.Exists(archiveFilePath) || (myCompressionType == CompressionType.folder && Directory.Exists(archiveFilePath)))
                 {
-                    string tempFileName = $"{txt_dosyaAdi.Text}({count}).{selectedCompressionType.ToLower()}";
+                    string tempFileName = "";
+                    if (myCompressionType != CompressionType.folder)
+                    {
+                        tempFileName = $"{txt_dosyaAdi.Text}({count}).{myCompressionType.ToString().ToLower()}";
+                    }
+                    else
+                    {
+                        tempFileName = $"{txt_dosyaAdi.Text}({count})";
+                    }
+
                     archiveFilePath = Path.Combine(hedefFolderPath, tempFileName);
                     count++;
                 }
 
-                if (selectedCompressionType == "zip")
+                if (myCompressionType == CompressionType.zip)
                 {
                     Compression.CompressWithZip(archiveFilePath, listBox1.Items.Cast<string>().ToList());
                 }
-                else if (selectedCompressionType == "rar")
+                else if (myCompressionType == CompressionType.rar)
                 {
                     Compression.CompressWithRar(archiveFilePath, listBox1.Items.Cast<string>().ToList());
 
                 }
-
-                //    MessageBox.Show($"Dosyalar başarıyla sıkıştırıldı ve kaydedildi: {archiveFilePath}");
-                //    // Google Drive'a yükleme
-                //    //GoogleDriveUploader.UploadFileToGoogleDrive(archiveFilePath);
-                //    //MessageBox.Show($"Dosya Google Drive'a yüklendi: {archiveFilePath}");
-                // Alınan accessToken ile GoogleDriveUploader sınıfını başlatın
-                //GoogleDriveUploader uploader = new GoogleDriveUploader(_login.accessToken);                
-                GoogleDriveUploader uploader = new GoogleDriveUploader(accessToken);
-                //MessageBox.Show("Test"+ archiveFilePath);
-                // Dosyayı kullanıcının Drive'ına yükleyin
-                if (isSession&&isSaveDrive)
+                else if (myCompressionType == CompressionType.folder)
                 {
-                    await uploader.UploadFileToGoogleDrive(archiveFilePath, DriveDosyaID);
+
+                    Compression.CompressWithFile(archiveFilePath, listBox1.Items.Cast<string>().ToList());
+
+                }
+                if (isSession && isSaveDrive)
+                {
+                    GoogleDriveUploader uploader = new GoogleDriveUploader(accessToken);
+                    Logger.WriteToLog(archiveFilePath);
+
+                    if (myCompressionType == CompressionType.folder)
+                        await uploader.UploadFileToGoogleDrive(archiveFilePath, DriveDosyaID, true);
+                    else
+                    {
+                        await uploader.UploadFileToGoogleDrive(archiveFilePath, DriveDosyaID, false);
+                    }
                     MessageBox.Show($"Dosya Google Drive'a ve ilgili dizine yüklendi: {archiveFilePath}");
                 }
                 else
@@ -295,8 +323,7 @@ namespace Backup
                 }
 
             }
-
-
+            await DriveLoadFolder();
         }
 
         private void txt_dosyaAdi_TextChanged(object sender, EventArgs e)
@@ -488,10 +515,8 @@ namespace Backup
             }
         }
 
-        private async void DriveLoadFolder()
+        private async Task DriveLoadFolder()
         {
-            //GoogleDriveUploader gdu = new GoogleDriveUploader(_login.accessToken);
-            //var folders = await gdu.ListDriveFolders();
 
             accessToken = loginGoogle.LoadAccessTokenFromFile();
             GoogleDriveUploader gdu = new GoogleDriveUploader(accessToken);
@@ -512,9 +537,17 @@ namespace Backup
                 {
                     // ComboBox'a ekle
                     cmb_folders.Items.Add(new { folder.Id, folder.Name });
+                    try
+                    {
 
+                        driveFolders.Add(folder.Name, folder.Id);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Drive'da aynı isimde klasörler var. Değiştirip tekrar deneyiniz");
+                        Logger.WriteToMailLog("Drive'da aynı isimde klasörler var. Değiştirip tekrar deneyiniz");
+                    }
                     // Sözlüğe ekle: Klasör Adı - Klasör ID'si
-                    driveFolders.Add(folder.Name, folder.Id);
 
                 }
 
@@ -559,7 +592,7 @@ namespace Backup
 
         }
 
-       async void LoginWithSession()
+        async void LoginWithSession()
         {
             // Check if the token exists and is valid
             string savedToken = loginGoogle.LoadAccessTokenFromFile();
@@ -570,7 +603,7 @@ namespace Backup
                 lbl_googleEmail.Text = userInfo.Email;
                 lbl_googleName.Text = userInfo.Name;
                 panel_googleDetaylar.Enabled = true;
-                DriveLoadFolder();
+                await DriveLoadFolder();
                 isSaveDrive = true;
                 btn_googleGiris.Enabled = false;
                 btn_googleCikis.Enabled = true;
@@ -580,15 +613,12 @@ namespace Backup
             else
             {
                 btn_googleGiris.Enabled = true;
-                btn_googleCikis.Enabled = false ;
+                btn_googleCikis.Enabled = false;
                 isSession = false;
             }
         }
         private async void btn_googleGiris_Click(object sender, EventArgs e)
         {
-
-            
-
             try
             {
                 string scope = "https://www.googleapis.com/auth/userinfo.profile " +
@@ -617,7 +647,7 @@ namespace Backup
                 lbl_googleName.Text = userInfo.Name;
                 panel_googleDetaylar.Enabled = true;
 
-                DriveLoadFolder();
+                await DriveLoadFolder();
                 btn_googleGiris.Enabled = false;
                 btn_googleCikis.Enabled = true;
                 isSaveDrive = true;
@@ -626,7 +656,7 @@ namespace Backup
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Giriş başarısız: {ex.Message}");
+               Logger.WriteToMailLog($"Giriş başarısız: {ex.Message}");
             }
         }
 
@@ -663,6 +693,11 @@ namespace Backup
             btn_googleCikis.Enabled = false;
             isSession = false;
             MessageBox.Show("Başarıyla çıkış yaptınız.");
+        }
+
+        private void txt_mail_TextChanged(object sender, EventArgs e)
+        {
+            mail = txt_mail.Text;
         }
     }
 }

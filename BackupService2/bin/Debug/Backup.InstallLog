@@ -1,0 +1,13 @@
+﻿'C:\Users\Lenovo\Emre\GitHub\Backup\BackupService2\bin\Debug\Backup.exe' derlemesi yükleniyor.
+Etkilenen parametreler şunlardır:
+   logtoconsole = 
+   assemblypath = C:\Users\Lenovo\Emre\GitHub\Backup\BackupService2\bin\Debug\Backup.exe
+   logfile = C:\Users\Lenovo\Emre\GitHub\Backup\BackupService2\bin\Debug\Backup.InstallLog
+C:\Users\Lenovo\Emre\GitHub\Backup\BackupService2\bin\Debug\Backup.exe derlemesinde RunInstallerAttribute.Yes özniteliğine sahip ortak yükleyiciler bulunamadı.
+'C:\Users\Lenovo\Emre\GitHub\Backup\BackupService2\bin\Debug\Backup.exe' derlemesi tamamlanıyor.
+Etkilenen parametreler şunlardır:
+   logtoconsole = 
+   assemblypath = C:\Users\Lenovo\Emre\GitHub\Backup\BackupService2\bin\Debug\Backup.exe
+   logfile = C:\Users\Lenovo\Emre\GitHub\Backup\BackupService2\bin\Debug\Backup.InstallLog
+C:\Users\Lenovo\Emre\GitHub\Backup\BackupService2\bin\Debug\Backup.exe derlemesinde RunInstallerAttribute.Yes özniteliğine sahip ortak yükleyiciler bulunamadı.
+Yükleyici olmadığından InstallState dosyası kaldırılmalı.

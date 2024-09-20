@@ -40,7 +40,8 @@ namespace BackupService2
             // 
             // serviceInstaller1
             // 
-            this.serviceInstaller1.ServiceName = "AAAAA_Backup";
+            this.serviceInstaller1.DisplayName = "1Backup";
+            this.serviceInstaller1.ServiceName = "1Backup";
             this.serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller

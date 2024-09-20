@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings>
-  <Kaynaklar>C:\Users\Lenovo\Desktop\Emre Demirci (CVENG).pdf;C:\Users\Lenovo\Desktop\resim_2022-09-28_193539299.jpg;C:\Users\Lenovo\Desktop\pp.jpg</Kaynaklar>
+  <Kaynaklar>C:\Users\Lenovo\Desktop\pp.jpg</Kaynaklar>
   <Hedefler>C:\Users\Lenovo\Downloads\Foto</Hedefler>
-  <FileName>Auth21</FileName>
+  <FileName>Auth25</FileName>
   <ServisSure>300000</ServisSure>
-  <SikistirmaTuru>rar</SikistirmaTuru>
+  <SikistirmaTuru>folder</SikistirmaTuru>
   <DriveKaydedilecekMi>true</DriveKaydedilecekMi>
 </Settings>

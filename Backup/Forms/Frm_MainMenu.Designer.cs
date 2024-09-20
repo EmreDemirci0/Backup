@@ -35,6 +35,10 @@ namespace Backup
             this.dosyaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.groupBox_Zamanlayici = new System.Windows.Forms.GroupBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.radio_folder = new System.Windows.Forms.RadioButton();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.radio_zip = new System.Windows.Forms.RadioButton();
             this.radio_rar = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
@@ -42,6 +46,7 @@ namespace Backup
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox_Genel = new System.Windows.Forms.GroupBox();
             this.lbl_dosyaAdi = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txt_dosyaAdi = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -51,40 +56,41 @@ namespace Backup
             this.groupBox_Dosya = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btn_HedefSil = new System.Windows.Forms.Button();
+            this.btn_hedefEkle = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
+            this.Btn_kaynakSil = new System.Windows.Forms.Button();
+            this.btn_kaynakEkle = new System.Windows.Forms.Button();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btn_servisAcKapa = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cmb_folders = new System.Windows.Forms.ComboBox();
             this.groupbox_drive = new System.Windows.Forms.GroupBox();
             this.check_saveGoogle = new System.Windows.Forms.CheckBox();
             this.panel_Google = new System.Windows.Forms.Panel();
+            this.btn_googleCikis = new System.Windows.Forms.Button();
             this.panel_googleDetaylar = new System.Windows.Forms.Panel();
+            this.btn_infoGoogle = new System.Windows.Forms.Button();
             this.lbl_googleEmail = new System.Windows.Forms.Label();
             this.lbl_googleName = new System.Windows.Forms.Label();
-            this.btn_googleCikis = new System.Windows.Forms.Button();
-            this.btn_infoGoogle = new System.Windows.Forms.Button();
             this.btn_googleGiris = new System.Windows.Forms.Button();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btn_HedefSil = new System.Windows.Forms.Button();
-            this.btn_hedefEkle = new System.Windows.Forms.Button();
-            this.Btn_kaynakSil = new System.Windows.Forms.Button();
-            this.btn_kaynakEkle = new System.Windows.Forms.Button();
+            this.btn_saveSettings = new System.Windows.Forms.Button();
+            this.btn_manuelSikistir = new System.Windows.Forms.Button();
+            this.btn_servisAcKapa = new System.Windows.Forms.Button();
+            this.txt_mail = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox_Zamanlayici.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.groupBox_Genel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox_Dosya.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.groupbox_drive.SuspendLayout();
             this.panel_Google.SuspendLayout();
             this.panel_googleDetaylar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // klasörToolStripMenuItem
@@ -110,6 +116,8 @@ namespace Backup
             // 
             // groupBox_Zamanlayici
             // 
+            this.groupBox_Zamanlayici.Controls.Add(this.pictureBox4);
+            this.groupBox_Zamanlayici.Controls.Add(this.radio_folder);
             this.groupBox_Zamanlayici.Controls.Add(this.pictureBox3);
             this.groupBox_Zamanlayici.Controls.Add(this.pictureBox2);
             this.groupBox_Zamanlayici.Controls.Add(this.radio_zip);
@@ -117,12 +125,54 @@ namespace Backup
             this.groupBox_Zamanlayici.Controls.Add(this.label5);
             this.groupBox_Zamanlayici.Controls.Add(this.label4);
             this.groupBox_Zamanlayici.Controls.Add(this.comboBox1);
-            this.groupBox_Zamanlayici.Location = new System.Drawing.Point(1089, 39);
+            this.groupBox_Zamanlayici.Location = new System.Drawing.Point(251, 26);
             this.groupBox_Zamanlayici.Name = "groupBox_Zamanlayici";
-            this.groupBox_Zamanlayici.Size = new System.Drawing.Size(317, 426);
+            this.groupBox_Zamanlayici.Size = new System.Drawing.Size(317, 430);
             this.groupBox_Zamanlayici.TabIndex = 19;
             this.groupBox_Zamanlayici.TabStop = false;
             this.groupBox_Zamanlayici.Text = "Detaylar";
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::Backup.Properties.Resources.folder;
+            this.pictureBox4.Location = new System.Drawing.Point(25, 358);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(36, 36);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox4.TabIndex = 17;
+            this.pictureBox4.TabStop = false;
+            // 
+            // radio_folder
+            // 
+            this.radio_folder.AutoSize = true;
+            this.radio_folder.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.radio_folder.Location = new System.Drawing.Point(67, 358);
+            this.radio_folder.Name = "radio_folder";
+            this.radio_folder.Size = new System.Drawing.Size(97, 36);
+            this.radio_folder.TabIndex = 16;
+            this.radio_folder.TabStop = true;
+            this.radio_folder.Text = "Klasör";
+            this.radio_folder.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::Backup.Properties.Resources.zip;
+            this.pictureBox3.Location = new System.Drawing.Point(25, 316);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(36, 36);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 15;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Backup.Properties.Resources.winrar;
+            this.pictureBox2.Location = new System.Drawing.Point(25, 274);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(36, 36);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 14;
+            this.pictureBox2.TabStop = false;
             // 
             // radio_zip
             // 
@@ -193,11 +243,13 @@ namespace Backup
             // 
             // groupBox_Genel
             // 
+            this.groupBox_Genel.Controls.Add(this.label6);
+            this.groupBox_Genel.Controls.Add(this.txt_mail);
             this.groupBox_Genel.Controls.Add(this.lbl_dosyaAdi);
             this.groupBox_Genel.Controls.Add(this.pictureBox1);
             this.groupBox_Genel.Controls.Add(this.txt_dosyaAdi);
             this.groupBox_Genel.Controls.Add(this.label2);
-            this.groupBox_Genel.Location = new System.Drawing.Point(251, 26);
+            this.groupBox_Genel.Location = new System.Drawing.Point(745, 26);
             this.groupBox_Genel.Name = "groupBox_Genel";
             this.groupBox_Genel.Size = new System.Drawing.Size(350, 430);
             this.groupBox_Genel.TabIndex = 17;
@@ -213,6 +265,14 @@ namespace Backup
             this.lbl_dosyaAdi.Name = "lbl_dosyaAdi";
             this.lbl_dosyaAdi.Size = new System.Drawing.Size(0, 25);
             this.lbl_dosyaAdi.TabIndex = 3;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(9, 37);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(298, 84);
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
             // 
             // txt_dosyaAdi
             // 
@@ -275,9 +335,9 @@ namespace Backup
             this.groupBox_Dosya.Controls.Add(this.Btn_kaynakSil);
             this.groupBox_Dosya.Controls.Add(this.btn_kaynakEkle);
             this.groupBox_Dosya.Controls.Add(this.listBox1);
-            this.groupBox_Dosya.Location = new System.Drawing.Point(610, 30);
+            this.groupBox_Dosya.Location = new System.Drawing.Point(251, 26);
             this.groupBox_Dosya.Name = "groupBox_Dosya";
-            this.groupBox_Dosya.Size = new System.Drawing.Size(473, 426);
+            this.groupBox_Dosya.Size = new System.Drawing.Size(473, 430);
             this.groupBox_Dosya.TabIndex = 16;
             this.groupBox_Dosya.TabStop = false;
             this.groupBox_Dosya.Text = "Dosya";
@@ -300,6 +360,30 @@ namespace Backup
             this.label1.TabIndex = 15;
             this.label1.Text = "Kaynak";
             // 
+            // btn_HedefSil
+            // 
+            this.btn_HedefSil.Image = global::Backup.Properties.Resources.delete1;
+            this.btn_HedefSil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_HedefSil.Location = new System.Drawing.Point(127, 344);
+            this.btn_HedefSil.Name = "btn_HedefSil";
+            this.btn_HedefSil.Size = new System.Drawing.Size(103, 34);
+            this.btn_HedefSil.TabIndex = 14;
+            this.btn_HedefSil.Text = "Sil";
+            this.btn_HedefSil.UseVisualStyleBackColor = true;
+            this.btn_HedefSil.Click += new System.EventHandler(this.btn_HedefSil_Click);
+            // 
+            // btn_hedefEkle
+            // 
+            this.btn_hedefEkle.Image = global::Backup.Properties.Resources.icons8_file_48__1_;
+            this.btn_hedefEkle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_hedefEkle.Location = new System.Drawing.Point(18, 344);
+            this.btn_hedefEkle.Name = "btn_hedefEkle";
+            this.btn_hedefEkle.Size = new System.Drawing.Size(103, 34);
+            this.btn_hedefEkle.TabIndex = 13;
+            this.btn_hedefEkle.Text = "Ekle";
+            this.btn_hedefEkle.UseVisualStyleBackColor = true;
+            this.btn_hedefEkle.Click += new System.EventHandler(this.btn_hedefEkle_Click);
+            // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
@@ -308,6 +392,30 @@ namespace Backup
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(449, 106);
             this.listBox2.TabIndex = 12;
+            // 
+            // Btn_kaynakSil
+            // 
+            this.Btn_kaynakSil.Image = global::Backup.Properties.Resources.delete1;
+            this.Btn_kaynakSil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Btn_kaynakSil.Location = new System.Drawing.Point(127, 155);
+            this.Btn_kaynakSil.Name = "Btn_kaynakSil";
+            this.Btn_kaynakSil.Size = new System.Drawing.Size(103, 34);
+            this.Btn_kaynakSil.TabIndex = 11;
+            this.Btn_kaynakSil.Text = "Sil";
+            this.Btn_kaynakSil.UseVisualStyleBackColor = true;
+            this.Btn_kaynakSil.Click += new System.EventHandler(this.Btn_kaynakSil_Click);
+            // 
+            // btn_kaynakEkle
+            // 
+            this.btn_kaynakEkle.Image = global::Backup.Properties.Resources.icons8_file_48__1_;
+            this.btn_kaynakEkle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_kaynakEkle.Location = new System.Drawing.Point(18, 155);
+            this.btn_kaynakEkle.Name = "btn_kaynakEkle";
+            this.btn_kaynakEkle.Size = new System.Drawing.Size(103, 34);
+            this.btn_kaynakEkle.TabIndex = 10;
+            this.btn_kaynakEkle.Text = "Ekle";
+            this.btn_kaynakEkle.UseVisualStyleBackColor = true;
+            this.btn_kaynakEkle.Click += new System.EventHandler(this.btn_kaynakEkle_Click);
             // 
             // contextMenuStrip2
             // 
@@ -322,28 +430,6 @@ namespace Backup
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(119, 24);
             this.toolStripMenuItem1.Text = "Dosya";
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button1.Location = new System.Drawing.Point(418, 476);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(183, 48);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "Ayarları Uygula";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.btn_sikistir_Click);
-            // 
-            // btn_servisAcKapa
-            // 
-            this.btn_servisAcKapa.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btn_servisAcKapa.Location = new System.Drawing.Point(25, 476);
-            this.btn_servisAcKapa.Name = "btn_servisAcKapa";
-            this.btn_servisAcKapa.Size = new System.Drawing.Size(220, 48);
-            this.btn_servisAcKapa.TabIndex = 21;
-            this.btn_servisAcKapa.Text = "Servisi Başlat/Bitir";
-            this.btn_servisAcKapa.UseVisualStyleBackColor = true;
-            this.btn_servisAcKapa.Click += new System.EventHandler(this.btn_servisBaslat_Click);
             // 
             // toolTip1
             // 
@@ -364,13 +450,13 @@ namespace Backup
             this.cmb_folders.TabIndex = 8;
             this.cmb_folders.SelectedIndexChanged += new System.EventHandler(this.cmb_folders_SelectedIndexChanged);
             // 
-            // group_drive
+            // groupbox_drive
             // 
             this.groupbox_drive.Controls.Add(this.check_saveGoogle);
             this.groupbox_drive.Controls.Add(this.panel_Google);
-            this.groupbox_drive.Location = new System.Drawing.Point(610, 556);
-            this.groupbox_drive.Name = "group_drive";
-            this.groupbox_drive.Size = new System.Drawing.Size(478, 345);
+            this.groupbox_drive.Location = new System.Drawing.Point(251, 26);
+            this.groupbox_drive.Name = "groupbox_drive";
+            this.groupbox_drive.Size = new System.Drawing.Size(478, 430);
             this.groupbox_drive.TabIndex = 22;
             this.groupbox_drive.TabStop = false;
             this.groupbox_drive.Text = "Google Drive işlemleri";
@@ -398,6 +484,19 @@ namespace Backup
             this.panel_Google.Size = new System.Drawing.Size(438, 251);
             this.panel_Google.TabIndex = 23;
             // 
+            // btn_googleCikis
+            // 
+            this.btn_googleCikis.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btn_googleCikis.Image = global::Backup.Properties.Resources.logout;
+            this.btn_googleCikis.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_googleCikis.Location = new System.Drawing.Point(5, 181);
+            this.btn_googleCikis.Name = "btn_googleCikis";
+            this.btn_googleCikis.Size = new System.Drawing.Size(258, 60);
+            this.btn_googleCikis.TabIndex = 24;
+            this.btn_googleCikis.Text = "Çıkış Yap";
+            this.btn_googleCikis.UseVisualStyleBackColor = true;
+            this.btn_googleCikis.Click += new System.EventHandler(this.btn_googleCikis_Click);
+            // 
             // panel_googleDetaylar
             // 
             this.panel_googleDetaylar.Controls.Add(this.btn_infoGoogle);
@@ -409,6 +508,15 @@ namespace Backup
             this.panel_googleDetaylar.Name = "panel_googleDetaylar";
             this.panel_googleDetaylar.Size = new System.Drawing.Size(432, 103);
             this.panel_googleDetaylar.TabIndex = 23;
+            // 
+            // btn_infoGoogle
+            // 
+            this.btn_infoGoogle.Image = global::Backup.Properties.Resources.info2;
+            this.btn_infoGoogle.Location = new System.Drawing.Point(390, 46);
+            this.btn_infoGoogle.Name = "btn_infoGoogle";
+            this.btn_infoGoogle.Size = new System.Drawing.Size(33, 33);
+            this.btn_infoGoogle.TabIndex = 16;
+            this.btn_infoGoogle.UseVisualStyleBackColor = true;
             // 
             // lbl_googleEmail
             // 
@@ -428,28 +536,6 @@ namespace Backup
             this.lbl_googleName.TabIndex = 14;
             this.lbl_googleName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btn_googleCikis
-            // 
-            this.btn_googleCikis.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btn_googleCikis.Image = global::Backup.Properties.Resources.google;
-            this.btn_googleCikis.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_googleCikis.Location = new System.Drawing.Point(5, 188);
-            this.btn_googleCikis.Name = "btn_googleCikis";
-            this.btn_googleCikis.Size = new System.Drawing.Size(433, 60);
-            this.btn_googleCikis.TabIndex = 24;
-            this.btn_googleCikis.Text = "Cikis Yap";
-            this.btn_googleCikis.UseVisualStyleBackColor = true;
-            this.btn_googleCikis.Click += new System.EventHandler(this.btn_googleCikis_Click);
-            // 
-            // btn_infoGoogle
-            // 
-            this.btn_infoGoogle.Image = global::Backup.Properties.Resources.info2;
-            this.btn_infoGoogle.Location = new System.Drawing.Point(390, 46);
-            this.btn_infoGoogle.Name = "btn_infoGoogle";
-            this.btn_infoGoogle.Size = new System.Drawing.Size(33, 33);
-            this.btn_infoGoogle.TabIndex = 16;
-            this.btn_infoGoogle.UseVisualStyleBackColor = true;
-            // 
             // btn_googleGiris
             // 
             this.btn_googleGiris.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -463,90 +549,75 @@ namespace Backup
             this.btn_googleGiris.UseVisualStyleBackColor = true;
             this.btn_googleGiris.Click += new System.EventHandler(this.btn_googleGiris_Click);
             // 
-            // pictureBox3
+            // btn_saveSettings
             // 
-            this.pictureBox3.Image = global::Backup.Properties.Resources.zip;
-            this.pictureBox3.Location = new System.Drawing.Point(25, 316);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(36, 36);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 15;
-            this.pictureBox3.TabStop = false;
+            this.btn_saveSettings.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btn_saveSettings.Image = global::Backup.Properties.Resources.saveResize;
+            this.btn_saveSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_saveSettings.Location = new System.Drawing.Point(544, 462);
+            this.btn_saveSettings.Name = "btn_saveSettings";
+            this.btn_saveSettings.Size = new System.Drawing.Size(185, 48);
+            this.btn_saveSettings.TabIndex = 24;
+            this.btn_saveSettings.Text = "Ayarları Kaydet";
+            this.btn_saveSettings.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_saveSettings.UseVisualStyleBackColor = true;
+            this.btn_saveSettings.Click += new System.EventHandler(this.btn_saveSettings_Click);
             // 
-            // pictureBox2
+            // btn_manuelSikistir
             // 
-            this.pictureBox2.Image = global::Backup.Properties.Resources.winrar;
-            this.pictureBox2.Location = new System.Drawing.Point(25, 274);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(36, 36);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 14;
-            this.pictureBox2.TabStop = false;
+            this.btn_manuelSikistir.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btn_manuelSikistir.Image = global::Backup.Properties.Resources.backup;
+            this.btn_manuelSikistir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_manuelSikistir.Location = new System.Drawing.Point(260, 462);
+            this.btn_manuelSikistir.Name = "btn_manuelSikistir";
+            this.btn_manuelSikistir.Size = new System.Drawing.Size(185, 48);
+            this.btn_manuelSikistir.TabIndex = 23;
+            this.btn_manuelSikistir.Text = "Manuel Backup";
+            this.btn_manuelSikistir.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_manuelSikistir.UseVisualStyleBackColor = true;
+            this.btn_manuelSikistir.Click += new System.EventHandler(this.btn_manuelSikistir_Click);
             // 
-            // pictureBox1
+            // btn_servisAcKapa
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(9, 37);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(298, 84);
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.btn_servisAcKapa.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btn_servisAcKapa.Image = global::Backup.Properties.Resources.service;
+            this.btn_servisAcKapa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_servisAcKapa.Location = new System.Drawing.Point(25, 462);
+            this.btn_servisAcKapa.Name = "btn_servisAcKapa";
+            this.btn_servisAcKapa.Size = new System.Drawing.Size(233, 48);
+            this.btn_servisAcKapa.TabIndex = 21;
+            this.btn_servisAcKapa.Text = "Servisi Başlat/Bitir";
+            this.btn_servisAcKapa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_servisAcKapa.UseVisualStyleBackColor = true;
+            this.btn_servisAcKapa.Click += new System.EventHandler(this.btn_servisBaslat_Click);
             // 
-            // btn_HedefSil
+            // txt_mail
             // 
-            this.btn_HedefSil.Image = global::Backup.Properties.Resources.delete1;
-            this.btn_HedefSil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_HedefSil.Location = new System.Drawing.Point(127, 344);
-            this.btn_HedefSil.Name = "btn_HedefSil";
-            this.btn_HedefSil.Size = new System.Drawing.Size(103, 34);
-            this.btn_HedefSil.TabIndex = 14;
-            this.btn_HedefSil.Text = "Sil";
-            this.btn_HedefSil.UseVisualStyleBackColor = true;
-            this.btn_HedefSil.Click += new System.EventHandler(this.btn_HedefSil_Click);
+            this.txt_mail.Location = new System.Drawing.Point(14, 384);
+            this.txt_mail.Name = "txt_mail";
+            this.txt_mail.Size = new System.Drawing.Size(293, 25);
+            this.txt_mail.TabIndex = 4;
+            this.txt_mail.TextChanged += new System.EventHandler(this.txt_mail_TextChanged);
             // 
-            // btn_hedefEkle
+            // label6
             // 
-            this.btn_hedefEkle.Image = global::Backup.Properties.Resources.icons8_file_48__1_;
-            this.btn_hedefEkle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_hedefEkle.Location = new System.Drawing.Point(18, 344);
-            this.btn_hedefEkle.Name = "btn_hedefEkle";
-            this.btn_hedefEkle.Size = new System.Drawing.Size(103, 34);
-            this.btn_hedefEkle.TabIndex = 13;
-            this.btn_hedefEkle.Text = "Ekle";
-            this.btn_hedefEkle.UseVisualStyleBackColor = true;
-            this.btn_hedefEkle.Click += new System.EventHandler(this.btn_hedefEkle_Click);
-            // 
-            // Btn_kaynakSil
-            // 
-            this.Btn_kaynakSil.Image = global::Backup.Properties.Resources.delete1;
-            this.Btn_kaynakSil.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Btn_kaynakSil.Location = new System.Drawing.Point(127, 155);
-            this.Btn_kaynakSil.Name = "Btn_kaynakSil";
-            this.Btn_kaynakSil.Size = new System.Drawing.Size(103, 34);
-            this.Btn_kaynakSil.TabIndex = 11;
-            this.Btn_kaynakSil.Text = "Sil";
-            this.Btn_kaynakSil.UseVisualStyleBackColor = true;
-            this.Btn_kaynakSil.Click += new System.EventHandler(this.Btn_kaynakSil_Click);
-            // 
-            // btn_kaynakEkle
-            // 
-            this.btn_kaynakEkle.Image = global::Backup.Properties.Resources.icons8_file_48__1_;
-            this.btn_kaynakEkle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_kaynakEkle.Location = new System.Drawing.Point(18, 155);
-            this.btn_kaynakEkle.Name = "btn_kaynakEkle";
-            this.btn_kaynakEkle.Size = new System.Drawing.Size(103, 34);
-            this.btn_kaynakEkle.TabIndex = 10;
-            this.btn_kaynakEkle.Text = "Ekle";
-            this.btn_kaynakEkle.UseVisualStyleBackColor = true;
-            this.btn_kaynakEkle.Click += new System.EventHandler(this.btn_kaynakEkle_Click);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label6.Location = new System.Drawing.Point(9, 331);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(298, 50);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Oluşan hataların mail olarak iletilmesini istiyorsanız mail adresini giriniz";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Frm_MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1276, 913);
+            this.Controls.Add(this.btn_saveSettings);
+            this.Controls.Add(this.btn_manuelSikistir);
             this.Controls.Add(this.groupbox_drive);
             this.Controls.Add(this.btn_servisAcKapa);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox_Zamanlayici);
             this.Controls.Add(this.groupBox_Genel);
             this.Controls.Add(this.listView1);
@@ -559,8 +630,12 @@ namespace Backup
             this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox_Zamanlayici.ResumeLayout(false);
             this.groupBox_Zamanlayici.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.groupBox_Genel.ResumeLayout(false);
             this.groupBox_Genel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox_Dosya.ResumeLayout(false);
             this.groupBox_Dosya.PerformLayout();
             this.contextMenuStrip2.ResumeLayout(false);
@@ -568,9 +643,6 @@ namespace Backup
             this.groupbox_drive.PerformLayout();
             this.panel_Google.ResumeLayout(false);
             this.panel_googleDetaylar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -602,7 +674,6 @@ namespace Backup
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btn_servisAcKapa;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox pictureBox3;
@@ -620,5 +691,11 @@ namespace Backup
         private System.Windows.Forms.Panel panel_googleDetaylar;
         private System.Windows.Forms.Button btn_googleCikis;
         private System.Windows.Forms.Button btn_infoGoogle;
+        private System.Windows.Forms.Button btn_manuelSikistir;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.RadioButton radio_folder;
+        private System.Windows.Forms.Button btn_saveSettings;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txt_mail;
     }
 }

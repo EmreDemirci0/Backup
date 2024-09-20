@@ -48,7 +48,7 @@ namespace Backup.Class
             }
             catch (Exception ex)
             {
-                Logger.WriteToLog($"Token alma sırasında hata: {ex.Message}");
+                Logger.WriteToMailLog($"Token alma sırasında hata: {ex.Message}");
                 throw;
             }
         }

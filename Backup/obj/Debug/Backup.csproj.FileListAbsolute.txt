@@ -143,7 +143,6 @@ C:\Users\Lenovo\Emre\GitHub\Backup\Backup\bin\Debug\System.ValueTuple.xml
 C:\Users\Lenovo\Emre\GitHub\Backup\Backup\bin\Debug\WebDriver.xml
 C:\Users\Lenovo\Emre\GitHub\Backup\Backup\bin\Debug\DevExpress.Pdf.v24.1.Core.xml
 C:\Users\Lenovo\Emre\GitHub\Backup\Backup\bin\Debug\DevExpress.Pdf.v24.1.Drawing.xml
-C:\Users\Lenovo\Emre\GitHub\Backup\Backup\obj\Debug\Backup.csproj.AssemblyReference.cache
 C:\Users\Lenovo\Emre\GitHub\Backup\Backup\obj\Debug\Backup.Form1.resources
 C:\Users\Lenovo\Emre\GitHub\Backup\Backup\obj\Debug\Backup.Frm_MainMenu.resources
 C:\Users\Lenovo\Emre\GitHub\Backup\Backup\obj\Debug\Backup.Frm_YeniGorev.resources

@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Backup
 {
@@ -21,7 +22,7 @@ namespace Backup
 
                 string settingsFilePath = Path.Combine(parentDirectory2, "Winrar", "Rar.exe");
 
-               
+
                 var startInfo = new ProcessStartInfo
                 {
 
@@ -41,7 +42,7 @@ namespace Backup
 
                     if (process.ExitCode != 0)
                     {
-                        Logger.WriteToLog($"RAR sıkıştırma işlemi sırasında hata oluştu: {error}");
+                        Logger.WriteToMailLog($"RAR sıkıştırma işlemi sırasında hata oluştu: {error}");
                     }
                     Logger.WriteToLog($"RAR sıkıştırma işlemi tamamlandı: {rarFilePath}");
                 }
@@ -49,32 +50,90 @@ namespace Backup
             catch (Exception ex)
             {
                 //MessageBox.Show($"RAR sıkıştırma hatası: {ex.Message}");
-                Logger.WriteToLog($"RAR sıkıştırma hatası: {ex.Message}");
+                Logger.WriteToMailLog($"RAR sıkıştırma hatası: {ex.Message}");
             }
         }
-        public static void CompressWithZip(string rarFilePath, List<string> kaynaklar)
+        public static void CompressWithZip(string zipFilePath, List<string> kaynaklar)
         {
-            // Zip sıkıştırma kodu
-            using (ZipArchive zip = ZipFile.Open(rarFilePath, ZipArchiveMode.Create))
+            try
             {
-                foreach (string item in kaynaklar)
+                using (ZipArchive zip = ZipFile.Open(zipFilePath, ZipArchiveMode.Create))
                 {
-                    if (Directory.Exists(item)) // Eğer klasörse
+                    foreach (string item in kaynaklar)
                     {
-                        foreach (string filePath in Directory.GetFiles(item, "*", SearchOption.AllDirectories))
+                        if (Directory.Exists(item)) // Eğer klasörse
                         {
-                            string entryName = GetRelativePath(item, filePath); // Klasör yapısını korumak için göreceli yol
-                            zip.CreateEntryFromFile(filePath, entryName);
+                            foreach (string filePath in Directory.GetFiles(item, "*", SearchOption.AllDirectories))
+                            {
+                                string entryName = GetRelativePath(item, filePath); // Klasör yapısını korumak için göreceli yol
+                                zip.CreateEntryFromFile(filePath, entryName);
+                            }
+                        }
+                        else if (File.Exists(item)) // Eğer dosyaysa
+                        {
+                            zip.CreateEntryFromFile(item, Path.GetFileName(item));
                         }
                     }
-                    else if (File.Exists(item)) // Eğer dosyaysa
+                }
+                Logger.WriteToLog($"Dosyalar zip ile başarıyla sıkıştırıldı ve kaydedildi: {zipFilePath}");
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteToMailLog($"Bir hata oluştu: {ex.Message}");
+            }
+            // Zip sıkıştırma kodu
+
+
+        }
+        public static void CompressWithFile(string destinationFolderPath, List<string> kaynaklar)
+        {
+            try
+            {
+                // Ensure the destination folder exists
+                Directory.CreateDirectory(destinationFolderPath);
+
+                // Loop through each item in the kaynaklar list (could be file or directory)
+                foreach (string item in kaynaklar)
+                {
+                    string destinationPath = Path.Combine(destinationFolderPath, Path.GetFileName(item));
+
+                    if (Directory.Exists(item)) // If the item is a directory
                     {
-                        zip.CreateEntryFromFile(item, Path.GetFileName(item));
+                        // Copy the entire directory and preserve the folder structure
+                        CopyDirectory(item, destinationPath);
+                    }
+                    else if (File.Exists(item)) // If the item is a file
+                    {
+                        // Copy the file directly into the destination folder
+                        File.Copy(item, destinationPath, true); // Overwrite if the file exists
+                    }
+                    else
+                    {
+                        // Log if the source is neither a file nor a directory
+                        Logger.WriteToLog($"Geçersiz dosya veya dizin: {item}");
                     }
                 }
-            }
-            Logger.WriteToLog($"Dosyalar zip ile başarıyla sıkıştırıldı ve kaydedildi: {rarFilePath}");
 
+                Logger.WriteToLog($"Dosyalar sıkıştırılmadan başarıyla klasöre kopyalandı: {destinationFolderPath}");
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteToMailLog($"Dosya kopyalama hatası: {ex.Message}");
+            }
+        }
+
+        public static void CopyDirectory(string sourceDir, string destinationDir)
+        {
+            Directory.CreateDirectory(destinationDir); // Ensure destination directory exists
+
+            // Copy all files
+            foreach (string file in Directory.GetFiles(sourceDir, "*", SearchOption.AllDirectories))
+            {
+                string relativePath = GetRelativePath(sourceDir, file); // Retain folder structure
+                string destinationFilePath = Path.Combine(destinationDir, relativePath);
+                Directory.CreateDirectory(Path.GetDirectoryName(destinationFilePath)); // Ensure subdirectories exist
+                File.Copy(file, destinationFilePath, true); // Copy file, overwrite if exists
+            }
         }
         static string GetRelativePath(string relativeTo, string path)
         {

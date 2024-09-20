@@ -95,6 +95,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Backup\Backup.csproj">
+      <Project>{A8661BEF-78E8-4C33-B51B-8B36C1169DBA}</Project>
+      <Name>Backup</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="ProjectInstaller.resx">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>

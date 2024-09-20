@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings>
-  <PathToCompress>C:\Users\Lenovo\Downloads\Database_Files</PathToCompress>
-  <DestinationPath>C:\Users\Lenovo\Desktop\Zips</DestinationPath>
-  <FileName>Database_Files</FileName>
-  <AccessToken>ya29.a0AcM612wnQor7mr0JOdk5fp9S_SBL-IFWEDVJPDVq7lVej0Sq03gxGFizAQKSTaUVgmRod6urdL70zqeX4YEUAFFXjhBNQj4oiUW7kFAcTZyKrq8D62NQIT5I9bAaHDsUmThqyCF68OYXYP0jmK_yIJQADkdUJS0OQbGL1n0TaCgYKASASARASFQHGX2MiqSN4QABKzFuEvW1MaQ0aMw0175</AccessToken>
+  <Kaynaklar>C:\Users\Lenovo\Desktop\{CV}Yunus Emre DemirciENG.pdf</Kaynaklar>
+  <Hedefler>C:\Users\Lenovo\Downloads\Database_Files</Hedefler>
+  <FileName>Emre</FileName>
+  <ServisSure>300000</ServisSure>
+  <SikistirmaTuru>rar</SikistirmaTuru>
+  <DriveKaydedilecekMi>false</DriveKaydedilecekMi>
+  <mail>yemre.1268@gmail.com</mail>
 </Settings>

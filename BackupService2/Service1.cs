@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Drive.v3;
+using Backup;
+using Backup.Class;
+using System.Threading.Tasks;
 
 namespace BackupService2
 {
@@ -22,255 +25,110 @@ namespace BackupService2
         }
         protected override void OnStart(string[] args)
         {
-            WriteToLog("Servis Başladı: ");
-            timer = new Timer(LoadServisSure()); // Her 1 dakikada bir çalışacak
+            Logger.WriteToLog("Servis Başladı: ");
+            timer = new Timer(Convert.ToDouble(servisSure));
             timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
             timer.Start();
         }
 
         protected override void OnStop()
         {
-            WriteToLog("Servis Durduruldu: ");
+            Logger.WriteToLog("Servis Durduruldu: ");
             timer.Stop();
         }
+        string fileName = "";
+        List<string> kaynaklar = new List<string>();
+        List<string> hedefler = new List<string>();
+        string servisSure;
+        bool isSaveDrive = false;
+        CompressionType compressionType = CompressionType.rar;
+        string DosyaID = "";
+        string mail = "";
 
-
-        private  void OnElapsedTime(object sender, ElapsedEventArgs e)
+        private async void OnElapsedTime(object sender, ElapsedEventArgs e)
         {
             try
             {
-                // XML dosyasından ayarları yükle
-                var (kaynaklar, hedefler, fileName, compressionType) = LoadSettings();
+                XmlDetaylar.LoadSettings(out fileName, out kaynaklar, out hedefler, out servisSure, out isSaveDrive, out DosyaID, out compressionType, out mail);
 
-                foreach (var hedef in hedefler)
+                foreach (string hedefFolderPath in hedefler)
                 {
-                    string zipFilePath = Path.Combine(hedef, $"{fileName}.{compressionType}");
-
-                    // Aynı isimde dosya varsa, numaralandırarak farklı isim oluştur
-                    int count = 1;
-                    while (File.Exists(zipFilePath))
+                    if (!Directory.Exists(hedefFolderPath))
                     {
-                        string tempFileName = $"{fileName}({count}).{compressionType}";
-                        zipFilePath = Path.Combine(hedef, tempFileName);
+                        //MessageBox.Show($"Hedef klasör bulunamadı: {hedefFolderPath}");
+                        continue; // Geçerli olmayan hedef klasörü atla
+                    }
+
+                    string archiveFilePath = "";
+                    if (compressionType != CompressionType.folder)
+                    {
+                        archiveFilePath = Path.Combine(hedefFolderPath, $"{fileName}.{compressionType.ToString().ToLower()}");
+                    }
+                    else
+                    {
+                        archiveFilePath = Path.Combine(hedefFolderPath, $"{fileName}");
+                    }
+
+                    // Aynı isimde dosya varsa numaralandır
+                    int count = 1;
+                    while (File.Exists(archiveFilePath) || (compressionType == CompressionType.folder && Directory.Exists(archiveFilePath)))
+                    {
+                        string tempFileName = "";
+                        if (compressionType != CompressionType.folder)
+                        {
+                            tempFileName = $"{fileName}({count}).{compressionType.ToString().ToLower()}";
+                        }
+                        else
+                        {
+                            tempFileName = $"{fileName}({count})";
+                        }
+
+                        archiveFilePath = Path.Combine(hedefFolderPath, tempFileName);
                         count++;
                     }
 
-                    // Sıkıştırma türüne göre işlem yap
-                    if (compressionType == "zip")
+                    if (compressionType == CompressionType.zip)
                     {
-                        CompressWithZip(zipFilePath, kaynaklar);
-                       
+                        Compression.CompressWithZip(archiveFilePath, kaynaklar);
                     }
-                    else if (compressionType == "rar")
+                    else if (compressionType == CompressionType.rar)
                     {
-                        CompressWithRar(zipFilePath, kaynaklar);
+                        Compression.CompressWithRar(archiveFilePath, kaynaklar);
                     }
-                    //Sıkıntı var parada
-                    // Google Drive'a yükleme işlemi
-                    //UploadFileToGoogleDrive(zipFilePath);
-                    // Giriş işlemi sonrası accessToken alınması
-                    //string accessToken = await GetAccessToken(authCode);
+                    else if (compressionType == CompressionType.folder)
+                    {
+                        Compression.CompressWithFile(archiveFilePath, kaynaklar);
 
-                    //// Alınan accessToken ile GoogleDriveUploader sınıfını başlatın
-                    //GoogleDriveUploader uploader = new GoogleDriveUploader(accessToken);
-
-                    //// Dosyayı kullanıcının Drive'ına yükleyin
-                    //await uploader.UploadFileToGoogleDrive("path/to/your/file.zip");
-                    //WriteToLog($"Dosya Google Drive'a yüklendi: {zipFilePath}");
+                    }
+                    await SaveDrive(archiveFilePath, DosyaID);
+                    Logger.WriteToLog($"Drive'a Yüklendi Yeeey");
                 }
             }
             catch (Exception ex)
             {
-                WriteToLog($"Hata oluştu: {ex.Message}");
+                Logger.WriteToLog($"Hata oluştu: {ex.Message}");
             }
         }
-        private void CompressWithZip(string zipFilePath, List<string> kaynaklar)
+        public async Task SaveDrive(string archiveFilePath, string DriveDosyaID)
         {
-            // Zip dosyasını oluştur
-            using (ZipArchive zip = ZipFile.Open(zipFilePath, ZipArchiveMode.Create))
+            if (isSaveDrive)
             {
-                foreach (string kaynak in kaynaklar)
-                {
-                    if (Directory.Exists(kaynak)) // Eğer klasörse
-                    {
-                        foreach (string filePath in Directory.GetFiles(kaynak, "*", SearchOption.AllDirectories))
-                        {
-                            string entryName = GetRelativePath(kaynak, filePath);
-                            zip.CreateEntryFromFile(filePath, entryName);
-                        }
-                    }
-                    else if (File.Exists(kaynak)) // Eğer dosyaysa
-                    {
-                        zip.CreateEntryFromFile(kaynak, Path.GetFileName(kaynak));
-                    }
-                }
-            }
+                GoogleDriveUploader uploader = new GoogleDriveUploader(XmlDetaylar.GetAccessTokenForService());
+                Logger.WriteToLog(archiveFilePath);
 
-            WriteToLog($"Sıkıştırma işlemi başarılı: {zipFilePath}");
-        }
-        private void CompressWithRar(string rarFilePath, List<string> kaynaklar)
-        {
-            try
-            {
-                string applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string parentDirectory = Directory.GetParent(applicationDirectory).Parent.FullName;
-                string parentDirectory2 = Directory.GetParent(parentDirectory).Parent.FullName;
-
-                string settingsFilePath = Path.Combine(parentDirectory2, "Winrar", "Rar.exe");
-
-                //System.Windows.Forms.MessageBox.Show("settingFilePath" + settingsFilePath);
-
-                var startInfo = new ProcessStartInfo
-                {
-
-                    FileName = settingsFilePath, // WinRAR'ın tam yolu
-                    Arguments = $"a \"{rarFilePath}\" \"{string.Join("\" \"", kaynaklar)}\" -r",
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                };
-
-                using (var process = Process.Start(startInfo))
-                {
-                    string output = process.StandardOutput.ReadToEnd();
-                    string error = process.StandardError.ReadToEnd();
-                    process.WaitForExit();
-
-                    if (process.ExitCode != 0)
-                    {
-                        throw new Exception($"RAR sıkıştırma işlemi sırasında hata oluştu: {error}");
-                    }
-                    WriteToLog($"RAR sıkıştırma işlemi tamamlandı: {rarFilePath}");
-                }
-            }
-            catch (Exception ex)
-            {
-                WriteToLog($"RAR sıkıştırma hatası: {ex.Message}");
-                //MessageBox.Show($"RAR sıkıştırma hatası: {ex.Message}");
-            }
-        }
-
-        private double LoadServisSure()
-        {
-            // XML dosyasının proje klasöründeki yolu
-            //string settingsFilePath = @"C:\Users\Lenovo\source\repos\Backup\BackupService2\bin\Debug\settings.xml";
-            string applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-            // XML dosyasının proje klasöründeki yolu (çalışma dizininde dinamik olarak ayarlanır)
-            string settingsFilePath = Path.Combine(applicationDirectory, "settings.xml");
-
-
-            if (File.Exists(settingsFilePath))
-            {
-                var settings = XElement.Load(settingsFilePath);
-
-                // ServisSure değerini al
-                string servisSureStr = settings.Element("ServisSure")?.Value;
-
-                // ServisSure değerini double'a çevir ve geri döndür
-                if (double.TryParse(servisSureStr, out double servisSure))
-                {
-                    return servisSure;
-                }
+                if (compressionType == CompressionType.folder)
+                    await uploader.UploadFileToGoogleDrive(archiveFilePath, DriveDosyaID, true);
                 else
                 {
-                    //MessageBox.Show("Servis süresi geçerli bir sayı değil.");
-                    return 0;
+                    await uploader.UploadFileToGoogleDrive(archiveFilePath, DriveDosyaID, false);
                 }
+                //MessageBox.Show($"Dosya Google Drive'a ve ilgili dizine yüklendi: {archiveFilePath}");
             }
             else
             {
-                //MessageBox.Show("Ayar dosyası bulunamadı.");
-                return 0;
+                //MessageBox.Show("Dosya ilgili dizine yüklendi.Google Drive Giriş Yapmadığı veya Tercih etmediği için Drive Yüklenemedi.");
             }
         }
-        private (List<string> kaynaklar, List<string> hedefler, string fileName, string compressionType) LoadSettings()
-        {
-            string settingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.xml");
-
-            if (!File.Exists(settingsFilePath))
-                throw new FileNotFoundException("Ayar dosyası bulunamadı.");
-
-            var settings = XElement.Load(settingsFilePath);
-
-            var kaynaklar = new List<string>(settings.Element("Kaynaklar")?.Value.Split(';'));
-            var hedefler = new List<string>(settings.Element("Hedefler")?.Value.Split(';'));
-            string fileName = settings.Element("FileName")?.Value;
-            string compressionType = settings.Element("SikistirmaTuru")?.Value.ToLower(); // Sıkıştırma türünü küçük harflerle al
-
-            return (kaynaklar, hedefler, fileName, compressionType);
-        }
-        public void UploadFileToGoogleDrive(string filePath)
-        {
-            try
-            {
-                string applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-                // XML dosyasının proje klasöründeki yolu (çalışma dizininde dinamik olarak ayarlanır)
-                //string settingsFilePath = Path.Combine(applicationDirectory, "settings.xml");
-                string serviceAccountCredentialFilePath = Path.Combine(applicationDirectory, "emre-projesi-79ceabaa8877.json");
-
-                //string serviceAccountCredentialFilePath = @"C:\Users\Lenovo\source\repos\Backup\BackupService2\bin\Debug\emre-projesi-79ceabaa8877.json";
-
-                var credential = GoogleCredential.FromFile(serviceAccountCredentialFilePath)
-                    .CreateScoped(DriveService.ScopeConstants.DriveFile);
-
-
-                var service = new DriveService(new BaseClientService.Initializer()
-                {
-                    HttpClientInitializer = credential,
-                    ApplicationName = "BackupService",
-
-                });
-
-
-
-                var fileMetadata = new Google.Apis.Drive.v3.Data.File()
-                {
-                    Name = Path.GetFileName(filePath),
-                    Parents = new List<string> { "1ItUaDyPe7xbTLPEa2gFhitoUS3kkabSy" }  // Buraya hedef klasörün ID'sini yazın
-                };
-
-
-                using (var stream = new FileStream(filePath, FileMode.Open))
-                {
-                    var request = service.Files.Create(fileMetadata, stream, "application/zip");
-
-                    request.Fields = "id";
-
-                    var result = request.Upload();
-
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                WriteToLog($"Google Drive yükleme hatası: {ex.Message}");
-                throw;
-            }
-        }
-
-        private string GetRelativePath(string relativeTo, string path)
-        {
-            Uri fromUri = new Uri(relativeTo);
-            Uri toUri = new Uri(path);
-
-            if (fromUri.Scheme != toUri.Scheme) { return path; }
-
-            Uri relativeUri = fromUri.MakeRelativeUri(toUri);
-            string relativePath = Uri.UnescapeDataString(relativeUri.ToString());
-            return relativePath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
-        }
-
-        private void WriteToLog(string message)
-        {
-            string logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt");
-            using (StreamWriter sw = new StreamWriter(logPath, true))
-            {
-                sw.WriteLine($"{message} - {DateTime.Now}");
-            }
-        }
+        
     }
 }

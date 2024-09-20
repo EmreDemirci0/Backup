@@ -22,7 +22,7 @@ public class GoogleDriveUploader
         this.accessToken = accessToken;
     }
 
-    public async Task UploadFileToGoogleDrive(string filePath, string dosyaID)
+    public async Task UploadFileToGoogleDrive(string filePath, string dosyaID, bool isDirectory)
     {
         try
         {
@@ -45,42 +45,52 @@ public class GoogleDriveUploader
             var fileMetadata = new Google.Apis.Drive.v3.Data.File()
             {
                 Name = Path.GetFileName(filePath),
-                // İsteğe bağlı olarak, hedef klasör ID'sini belirleyebilirsiniz. Burada boş bırakıyoruz.
-                //Parents = new List<string> { "root" } // "root" Drive'ın ana dizinine yükler
-                //Parents = new List<string> { "my-drive" } // "root" Drive'ın ana dizinine yükler
-                //Parents= new List<string> { "1H62UmUsFSG5PY3TcXza6qSU_E7u0Z5At" }
-                //Parents= new List<string> { dosyaID }
             };
-
-
-            if (dosyaID != "")
+            if (!string.IsNullOrEmpty(dosyaID))
             {
                 fileMetadata.Parents = new List<string> { dosyaID };
+                Logger.WriteToMailLog($"Dosya ilgili klasöre yükleniyor. Klasör ID: {dosyaID}");
             }
-
-
-
-            // Dosyayı Google Drive'a yükle
-            using (var stream = new FileStream(filePath, FileMode.Open))
+            else
             {
-                var request = service.Files.Create(fileMetadata, stream, "application/zip");
-                request.Fields = "id";
-                var result = await request.UploadAsync();
+                Logger.WriteToMailLog("Dosya Google Drive root dizinine yükleniyor.");
+            }
 
-                if (result.Status == Google.Apis.Upload.UploadStatus.Completed)
-                {
-                    Logger.WriteToLog("Dosya Drive'a başarıyla yüklendi.");
-                }
+
+            if (isDirectory)//Klasör ise
+            {
+                string driveFolderId = "";
+                if (!string.IsNullOrEmpty(dosyaID))
+                    driveFolderId = CreateFolder(service, fileMetadata.Name, dosyaID);
                 else
+                    driveFolderId = CreateFolder(service, fileMetadata.Name);
+                UploadFolder(service, filePath, driveFolderId);
+            }
+            else//Rar Zip ise
+            {
+                // Dosyayı Google Drive'a yükle
+                using (var stream = new FileStream(filePath, FileMode.Open))
                 {
-                    // Hata mesajını ve durumu loga yazdırma
-                    Logger.WriteToLog($"Yükleme sırasında bir hata oluştu. Status: {result.Status}, Hata mesajı: {result.Exception?.Message}");
+                    var request = service.Files.Create(fileMetadata, stream, "application/zip");
+                    request.Fields = "id";
+                    var result = await request.UploadAsync();
+
+                    if (result.Status == Google.Apis.Upload.UploadStatus.Completed)
+                    {
+                        //Logger.WriteToLog("Dosya Drive'a başarıyla yüklendi.");
+                    }
+                    else
+                    {
+                        // Hata mesajını ve durumu loga yazdırma
+                        Logger.WriteToMailLog($"Yükleme sırasında bir hata oluştu. Status: {result.Status}, Hata mesajı: {result.Exception?.Message}");
+                    }
                 }
             }
+
         }
         catch (Exception ex)
         {
-            Logger.WriteToLog($"Google Drive yükleme hatası: {ex.Message}");
+            Logger.WriteToMailLog($"Google Drive yükleme hatası: {ex.Message}");
         }
     }
 
@@ -105,7 +115,7 @@ public class GoogleDriveUploader
         }
         catch (Exception ex)
         {
-            Logger.WriteToLog($"Klasörleri alırken hata oluştu: {ex.Message} - {DateTime.Now}");
+            Logger.WriteToMailLog($"Klasörleri alırken hata oluştu: {ex.Message} - {DateTime.Now}");
             return null;
         }
     }
@@ -116,14 +126,70 @@ public class GoogleDriveUploader
             using (var client = new HttpClient())
             {
                 var response = await client.GetAsync($"https://oauth2.googleapis.com/tokeninfo?access_token={accessToken}");
-                Logger.WriteToLog($"Token Basarıyla doğrulandı");
+                //Logger.WriteToLog($"Token Basarıyla doğrulandı");
                 return response.IsSuccessStatusCode;
             }
         }
         catch (Exception ex)
         {
-            Logger.WriteToLog($"Token doğrulama hatası: {ex.Message}");
+            Logger.WriteToMailLog($"Token doğrulama hatası: {ex.Message}");
             return false;
         }
+    }
+
+    static string CreateFolder(DriveService service, string folderName, string parentId = null)
+    {
+        var fileMetadata = new Google.Apis.Drive.v3.Data.File()
+        {
+            Name = folderName,
+            MimeType = "application/vnd.google-apps.folder",
+            Parents = parentId != null ? new List<string> { parentId } : null
+        };
+
+        var request = service.Files.Create(fileMetadata);
+        request.Fields = "id";
+        var file = request.Execute();
+        return file.Id;
+    }
+    static void UploadFolder(DriveService service, string localFolderPath, string parentId)
+    {
+        foreach (var directory in Directory.GetDirectories(localFolderPath))
+        {
+            string folderName = Path.GetFileName(directory);
+            string folderId = CreateFolder(service, folderName, parentId);
+            UploadFolder(service, directory, folderId); // Alt klasörleri yükle
+        }
+
+        foreach (var filePath in Directory.GetFiles(localFolderPath))
+        {
+            var fileMetadata = new Google.Apis.Drive.v3.Data.File()
+            {
+                Name = Path.GetFileName(filePath),
+                Parents = new List<string> { parentId }
+            };
+
+            using (var stream = new FileStream(filePath, FileMode.Open))
+            {
+                var request = service.Files.Create(fileMetadata, stream, GetMimeType(filePath));
+                request.Fields = "id";
+                request.Upload();
+                var file = request.ResponseBody;
+            }
+        }
+    }
+    static string GetMimeType(string filePath)
+    {
+        var mimeType = "application/octet-stream";
+        var ext = Path.GetExtension(filePath).ToLower();
+        switch (ext)
+        {
+            case ".jpg": mimeType = "image/jpeg"; break;
+            case ".jpeg": mimeType = "image/jpeg"; break;
+            case ".png": mimeType = "image/png"; break;
+            case ".gif": mimeType = "image/gif"; break;
+            case ".pdf": mimeType = "application/pdf"; break;
+                // Diğer MIME türlerini ekleyebilirsiniz.
+        }
+        return mimeType;
     }
 }
