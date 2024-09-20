@@ -1,9 +1,11 @@
 ﻿using Google.Apis.Auth.OAuth2;
 using Google.Apis.Oauth2.v2;
+using Google.Apis.Oauth2.v2.Data;
 using Google.Apis.Services;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -16,8 +18,10 @@ namespace Backup.Class
         public string clientId = "443208802422-7ki16aca76sq48oq1f5ci6stavfvi8dn.apps.googleusercontent.com"; // Google Cloud Console'dan alınacak
         public string clientSecret = "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"; // Google Cloud Console'dan alınacak
         public string redirectUri = "urn:ietf:wg:oauth:2.0:oob"; // Sabit geri dönüş URI
+       
+        private string tokenFilePath = "token.xml"; // Path where you save the token
 
-        public Google.Apis.Oauth2.v2.Data.Userinfo userInfo;
+        public Userinfo userInfo;
         public async Task<string> GetAccessToken(string authCode)
         {
             try
@@ -49,7 +53,7 @@ namespace Backup.Class
             }
         }
 
-        public async Task< Google.Apis.Oauth2.v2.Data.Userinfo> GetUserInfo(string accessToken)
+        public async Task<Userinfo> GetUserInfo(string accessToken)
         {
             var oauthService = new Oauth2Service(new BaseClientService.Initializer
             {
@@ -66,6 +70,45 @@ namespace Backup.Class
             //frm_MainMenu.Show();
         }
 
+        
+        public async Task<bool> IsTokenValid(string token)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var response = await client.GetAsync($"https://oauth2.googleapis.com/tokeninfo?access_token={token}");
+                    return response.IsSuccessStatusCode; // Token is valid if the request is successful
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public void SaveAccessTokenToFile(string token)
+        {
+            // Save the token to an XML or any other secure location
+            File.WriteAllText(tokenFilePath, token);
+        }
+
+        public string LoadAccessTokenFromFile()
+        {
+            if (File.Exists(tokenFilePath))
+            {
+                return File.ReadAllText(tokenFilePath);
+            }
+            return null;
+        }
+
+        public void DeleteAccessTokenFile()
+        {
+            if (File.Exists(tokenFilePath))
+            {
+                File.Delete(tokenFilePath);
+            }
+        }
 
     }
 }

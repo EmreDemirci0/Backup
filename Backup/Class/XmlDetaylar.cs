@@ -19,13 +19,14 @@ namespace Backup
             string settingsFilePath = Path.Combine(parentDirectory2, "BackupService2", "bin", "Debug", "settings.xml");
             return settingsFilePath;
         }
-        public static void LoadSettings(out string fileName, out List<string> kaynakSelectedItems, out List<string> hedefSelectedItems) // XML dosyasından ayarları yükler
+        public static void LoadSettings(out string fileName, out List<string> kaynakSelectedItems, out List<string> hedefSelectedItems,out bool isSaveDrive) // XML dosyasından ayarları yükler
         {
             string settingsFilePath = GetFilePath();
 
+            fileName = string.Empty;
             kaynakSelectedItems = new List<string>();
             hedefSelectedItems = new List<string>();
-            fileName = string.Empty;
+            isSaveDrive =false;
             if (File.Exists(settingsFilePath))
             {
                 var settings = XElement.Load(settingsFilePath);
@@ -34,13 +35,22 @@ namespace Backup
                 kaynakSelectedItems = new List<string>(settings.Element("Kaynaklar")?.Value.Split(';'));
                 hedefSelectedItems = new List<string>(settings.Element("Hedefler")?.Value.Split(';'));
                 fileName = settings.Element("FileName")?.Value;
+                if (settings.Element("DriveKaydedilecekMi")?.Value=="true")
+                {
+                    isSaveDrive = true;
+                }
+                else
+                {
+                    isSaveDrive = false;
+                }
+              
             }
             else
             {
                 Logger.WriteToLog("Load için XML dosyası bulunamadı...");
             }
         }
-        public static void SaveSettings(List<string> kaynakSelectedItems, List<string> hedefSelectedItems, string fileName, string servisSuresi, string CompressionType) // Ayarları XML dosyasına kaydeder
+        public static void SaveSettings(List<string> kaynakSelectedItems, List<string> hedefSelectedItems, string fileName, string servisSuresi, string CompressionType,bool isSaveDrive ) // Ayarları XML dosyasına kaydeder
         {
             string settingsFilePath = GetFilePath();
 
@@ -49,7 +59,8 @@ namespace Backup
                 new XElement("Hedefler", string.Join(";", hedefSelectedItems)),
                 new XElement("FileName", fileName),
                 new XElement("ServisSure", servisSuresi),
-                new XElement("SikistirmaTuru", CompressionType)
+                new XElement("SikistirmaTuru", CompressionType),
+                new XElement("DriveKaydedilecekMi", isSaveDrive)
             );
 
             // Ayarları XML dosyasına kaydet

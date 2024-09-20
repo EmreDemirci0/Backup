@@ -6,6 +6,8 @@ using Google.Apis.Util.Store;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,13 +16,13 @@ public class GoogleDriveUploader
     // Kullanıcı giriş yaptıktan sonra aldığınız accessToken burada olacak
     private string accessToken;
 
-    
+
     public GoogleDriveUploader(string accessToken)
     {
         this.accessToken = accessToken;
     }
 
-    public async Task UploadFileToGoogleDrive(string filePath,string dosyaID)
+    public async Task UploadFileToGoogleDrive(string filePath, string dosyaID)
     {
         try
         {
@@ -72,7 +74,7 @@ public class GoogleDriveUploader
                 else
                 {
                     // Hata mesajını ve durumu loga yazdırma
-                    Logger. WriteToLog($"Yükleme sırasında bir hata oluştu. Status: {result.Status}, Hata mesajı: {result.Exception?.Message}");
+                    Logger.WriteToLog($"Yükleme sırasında bir hata oluştu. Status: {result.Status}, Hata mesajı: {result.Exception?.Message}");
                 }
             }
         }
@@ -81,49 +83,47 @@ public class GoogleDriveUploader
             Logger.WriteToLog($"Google Drive yükleme hatası: {ex.Message}");
         }
     }
-    //public static async Task<UserCredential> GetUserCredentialAsync()
-    //{
-    //    // Kullanıcıdan gerekli izinleri almak için yetki kapsamları
-    //    string[] scopes = { DriveService.Scope.DriveFile }; // Sadece uygulamanızın yüklediği dosyalara erişir
 
-    //    using (var stream = new FileStream("client_secret_443208802422-7ki16aca76sq48oq1f5ci6stavfvi8dn.apps.googleusercontent.com.json", FileMode.Open, FileAccess.Read))
-    //    {
-    //        string credPath = "token.json";
-    //        return await GoogleWebAuthorizationBroker.AuthorizeAsync(
-    //            GoogleClientSecrets.Load(stream).Secrets,
-    //            scopes,
-    //            "user",
-    //            CancellationToken.None,
-    //            new FileDataStore(credPath, true));
-    //    }
-    //}
-    public async Task<IList<Google.Apis.Drive.v3.Data.File>> ListDriveFolders()
+    public async Task<List<Google.Apis.Drive.v3.Data.File>> ListDriveFolders()
     {
         try
         {
-            // Google Drive API servisini başlat
-            var service = new DriveService(new BaseClientService.Initializer()
+
+            var credential = GoogleCredential.FromAccessToken(accessToken);
+            var driveService = new DriveService(new BaseClientService.Initializer()
             {
-                HttpClientInitializer = GoogleCredential.FromAccessToken(accessToken)
-                                    .CreateScoped(new[] { DriveService.Scope.DriveReadonly }),
-                ApplicationName = "BackupService",
+                HttpClientInitializer = credential,
+                ApplicationName = "Drive API",
             });
 
-            // Klasörleri almak için sorgu oluştur
-            FilesResource.ListRequest request = service.Files.List();
+            var request = driveService.Files.List();
             request.Q = "mimeType='application/vnd.google-apps.folder'";
-            request.Fields = "nextPageToken, files(id, name)";
-
-            // Klasör listesini al
+            request.Fields = "files(id, name)";
             var result = await request.ExecuteAsync();
-            return result.Files;
+
+            return result.Files.ToList();
         }
         catch (Exception ex)
         {
-            Logger.WriteToLog($"Klasörleri alırken hata oluştu: {ex.Message}");
+            Logger.WriteToLog($"Klasörleri alırken hata oluştu: {ex.Message} - {DateTime.Now}");
             return null;
         }
     }
-
-
+    public async Task<bool> IsTokenValid(string accessToken)
+    {
+        try
+        {
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync($"https://oauth2.googleapis.com/tokeninfo?access_token={accessToken}");
+                Logger.WriteToLog($"Token Basarıyla doğrulandı");
+                return response.IsSuccessStatusCode;
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.WriteToLog($"Token doğrulama hatası: {ex.Message}");
+            return false;
+        }
+    }
 }

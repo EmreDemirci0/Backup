@@ -35,7 +35,9 @@ namespace Backup
         public string accessToken;
 
 
-        bool googleBaglandiMi = false;
+        bool isSaveDrive = false;//burayı kontrol edeceğiz. Her an her şey olabilir//???////////////////////////////////
+        bool isSession=false;
+        LoginGoogle loginGoogle;
 
         //  Login _login;
         public Frm_MainMenu(/*Login login*/)
@@ -46,8 +48,8 @@ namespace Backup
             comboBox1.SelectedIndex = 0;
             lbl_dosyaAdi.Text = txt_dosyaAdi.Text;
             radio_rar.Checked = true;
-            toolTip1.SetToolTip(picture_infoDrive, "Drive'da bir klasör oluşturun ve https://drive.google.com/drive/u/0/folders/{FOLDER_ID} kısmındaki folder_ID yi aşağı yazınız.\nAynı zamanda bu klasorü erişim iznini klasör özellikleri / paylaş / genel erişim kısmından Bağlantıya Sahip olan herkes ve rol olarak da düzenleyen verilmesi gerekir.");
-
+            toolTip1.SetToolTip(btn_infoGoogle, "Drive'da bir klasör seçiniz.");
+            loginGoogle = new LoginGoogle();
         }
 
 
@@ -57,11 +59,11 @@ namespace Backup
             KaynakEkleIslemleri();
             HedefEkleIslemleri();
             LoadXmlDatas();
-
+            LoginWithSession();
         }
         private void LoadXmlDatas()
         {
-            XmlDetaylar.LoadSettings(out fileName, out kaynakSelectedItems, out hedefSelectedItems);
+            XmlDetaylar.LoadSettings(out fileName, out kaynakSelectedItems, out hedefSelectedItems, out isSaveDrive);
 
 
 
@@ -73,6 +75,9 @@ namespace Backup
 
             txt_dosyaAdi.Text = fileName;
 
+            check_saveGoogle.Checked = isSaveDrive;
+            panel_Google.Enabled = isSaveDrive;
+
         }
         private void SaveXmlDatas()
         {
@@ -83,7 +88,7 @@ namespace Backup
                 compressionType = "zip";
 
             fileName = txt_dosyaAdi.Text;
-            XmlDetaylar.SaveSettings(kaynakSelectedItems, hedefSelectedItems, fileName, servisSuresi, compressionType);
+            XmlDetaylar.SaveSettings(kaynakSelectedItems, hedefSelectedItems, fileName, servisSuresi, compressionType, isSaveDrive);
 
         }
         private void SaveAccessTokenToXml()
@@ -180,18 +185,30 @@ namespace Backup
                         groupBox_Genel.Visible = true;
                         groupBox_Dosya.Visible = false;
                         groupBox_Zamanlayici.Visible = false;
+                        groupbox_drive.Visible = false;
                         break;
 
                     case 1: // Eğer 2. öğe seçildiyse (index 1)
                         groupBox_Genel.Visible = false;
                         groupBox_Dosya.Visible = true;
                         groupBox_Zamanlayici.Visible = false;
+                        groupbox_drive.Visible = false;
+
                         break;
 
                     case 2: // Eğer 3. öğe seçildiyse (index 2)
                         groupBox_Genel.Visible = false;
                         groupBox_Dosya.Visible = false;
                         groupBox_Zamanlayici.Visible = true;
+                        groupbox_drive.Visible = false;
+
+                        break;
+                    case 3: // Eğer 3. öğe seçildiyse (index 2)
+                        groupBox_Genel.Visible = false;
+                        groupBox_Dosya.Visible = false;
+                        groupBox_Zamanlayici.Visible = false;
+                        groupbox_drive.Visible = true;
+
                         break;
 
 
@@ -267,7 +284,7 @@ namespace Backup
                 GoogleDriveUploader uploader = new GoogleDriveUploader(accessToken);
                 //MessageBox.Show("Test"+ archiveFilePath);
                 // Dosyayı kullanıcının Drive'ına yükleyin
-                if (googleBaglandiMi)
+                if (isSession&&isSaveDrive)
                 {
                     await uploader.UploadFileToGoogleDrive(archiveFilePath, DriveDosyaID);
                     MessageBox.Show($"Dosya Google Drive'a ve ilgili dizine yüklendi: {archiveFilePath}");
@@ -327,11 +344,13 @@ namespace Backup
             string imagePath1 = Path.Combine(Application.StartupPath, "Foto", "general.png");
             string imagePath2 = Path.Combine(Application.StartupPath, "Foto", "folder.png");
             string imagePath3 = Path.Combine(Application.StartupPath, "Foto", "timer.png");
+            string imagePath4 = Path.Combine(Application.StartupPath, "Foto", "drive.png");
 
             // ImageList'e görüntü ekle
             imageList.Images.Add(Image.FromFile(imagePath1)); // Görüntü 1
             imageList.Images.Add(Image.FromFile(imagePath2)); // Görüntü 2
             imageList.Images.Add(Image.FromFile(imagePath3)); // Görüntü 2
+            imageList.Images.Add(Image.FromFile(imagePath4)); // Görüntü 2
 
             imageList.ImageSize = new Size(28, 28); // Görüntülerin boyutunu 32x32 olarak ayarla
 
@@ -343,9 +362,11 @@ namespace Backup
             ListViewItem item1 = new ListViewItem("Genel", 0); // 0, ImageList'teki ilk görüntüye işaret eder
             ListViewItem item2 = new ListViewItem("Dosya", 1); // 1, ikinci görüntü
             ListViewItem item3 = new ListViewItem("Detay", 2); // 1, ikinci görüntü
+            ListViewItem item4 = new ListViewItem("Drive", 3); // 1, ikinci görüntü
             listView1.Items.Add(item1);
             listView1.Items.Add(item2);
             listView1.Items.Add(item3);
+            listView1.Items.Add(item4);
 
 
             string bannerImagePath = Path.Combine(Application.StartupPath, "Foto", "banner.png");
@@ -354,6 +375,7 @@ namespace Backup
             groupBox_Genel.Visible = true;
             groupBox_Dosya.Visible = false;
             groupBox_Zamanlayici.Visible = false;
+            groupbox_drive.Visible = false;
         }
         private void KaynakEkleIslemleri()
         {
@@ -471,9 +493,9 @@ namespace Backup
             //GoogleDriveUploader gdu = new GoogleDriveUploader(_login.accessToken);
             //var folders = await gdu.ListDriveFolders();
 
+            accessToken = loginGoogle.LoadAccessTokenFromFile();
             GoogleDriveUploader gdu = new GoogleDriveUploader(accessToken);
             var folders = await gdu.ListDriveFolders();
-
 
             if (folders != null)
             {
@@ -537,16 +559,42 @@ namespace Backup
 
         }
 
-
+       async void LoginWithSession()
+        {
+            // Check if the token exists and is valid
+            string savedToken = loginGoogle.LoadAccessTokenFromFile();
+            if (savedToken != null && await loginGoogle.IsTokenValid(savedToken))
+            {
+                // Token is valid, no need to log in again
+                Userinfo userInfo = await loginGoogle.GetUserInfo(savedToken);
+                lbl_googleEmail.Text = userInfo.Email;
+                lbl_googleName.Text = userInfo.Name;
+                panel_googleDetaylar.Enabled = true;
+                DriveLoadFolder();
+                isSaveDrive = true;
+                btn_googleGiris.Enabled = false;
+                btn_googleCikis.Enabled = true;
+                isSession = true;
+                return;
+            }
+            else
+            {
+                btn_googleGiris.Enabled = true;
+                btn_googleCikis.Enabled = false ;
+                isSession = false;
+            }
+        }
         private async void btn_googleGiris_Click(object sender, EventArgs e)
         {
-            LoginGoogle loginGoogle = new LoginGoogle();
+
+            
+
             try
             {
                 string scope = "https://www.googleapis.com/auth/userinfo.profile " +
-               "https://www.googleapis.com/auth/userinfo.email " +
-               "https://www.googleapis.com/auth/drive.file " +
-               "https://www.googleapis.com/auth/drive";
+                               "https://www.googleapis.com/auth/userinfo.email " +
+                               "https://www.googleapis.com/auth/drive.file " +
+                               "https://www.googleapis.com/auth/drive";
 
                 string authorizationUrl = $"https://accounts.google.com/o/oauth2/v2/auth?" +
                                           $"scope={scope}&" +
@@ -556,25 +604,24 @@ namespace Backup
                                           $"redirect_uri={loginGoogle.redirectUri}&" +
                                           $"client_id={loginGoogle.clientId}";
 
-                // Tarayıcıyı açarak kullanıcıyı giriş ekranına yönlendir
                 Process.Start(new ProcessStartInfo(authorizationUrl) { UseShellExecute = true });
 
-                // Kullanıcıdan yetkilendirme kodunu al
                 string authCode = Microsoft.VisualBasic.Interaction.InputBox("Google yetkilendirme kodunu girin:", "Yetkilendirme Kodu");
-
-                // Yetkilendirme kodunu kullanarak erişim jetonunu alın
                 accessToken = await loginGoogle.GetAccessToken(authCode);
 
-                SaveAccessTokenToXml();
-                googleBaglandiMi = true;
-                // Erişim jetonunu kullanarak kullanıcı bilgilerini al
+                // Save the access token to file
+                loginGoogle.SaveAccessTokenToFile(accessToken);
+
                 Userinfo userInfo = await loginGoogle.GetUserInfo(accessToken);
-
-
                 lbl_googleEmail.Text = userInfo.Email;
                 lbl_googleName.Text = userInfo.Name;
                 panel_googleDetaylar.Enabled = true;
+
                 DriveLoadFolder();
+                btn_googleGiris.Enabled = false;
+                btn_googleCikis.Enabled = true;
+                isSaveDrive = true;
+                isSession = true;
 
             }
             catch (Exception ex)
@@ -583,10 +630,10 @@ namespace Backup
             }
         }
 
-      
 
         private void check_saveGoogle_CheckedChanged(object sender, EventArgs e)
         {
+            isSaveDrive = check_saveGoogle.Checked;
             if (check_saveGoogle.Checked)
             {
                 panel_Google.Enabled = true;
@@ -600,8 +647,22 @@ namespace Backup
 
         private void cmb_folders_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MessageBox.Show("degisti");
             DriveSelectFolder();
+        }
+
+        private void btn_googleCikis_Click(object sender, EventArgs e)
+        {
+            // Delete the token file
+            loginGoogle.DeleteAccessTokenFile();
+
+            // Clear the UI
+            lbl_googleEmail.Text = string.Empty;
+            lbl_googleName.Text = string.Empty;
+            panel_googleDetaylar.Enabled = false;
+            btn_googleGiris.Enabled = true;
+            btn_googleCikis.Enabled = false;
+            isSession = false;
+            MessageBox.Show("Başarıyla çıkış yaptınız.");
         }
     }
 }
