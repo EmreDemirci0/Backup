@@ -1,0 +1,13 @@
+﻿'C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\BackupService.exe' derlemesi yükleniyor.
+Etkilenen parametreler şunlardır:
+   logtoconsole = 
+   logfile = C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\BackupService.InstallLog
+   assemblypath = C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\BackupService.exe
+1Backup hizmeti yükleniyor...
+1Backup hizmeti başarıyla yüklendi.
+Application günlüğünde 1Backup EventLog kaynağı oluşturuluyor...
+'C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\BackupService.exe' derlemesi tamamlanıyor.
+Etkilenen parametreler şunlardır:
+   logtoconsole = 
+   logfile = C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\BackupService.InstallLog
+   assemblypath = C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\BackupService.exe

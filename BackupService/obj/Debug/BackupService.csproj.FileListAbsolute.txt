@@ -1,10 +1,10 @@
+C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\BackupService.exe
+C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\Backup.exe
 C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\selenium-manager\linux\selenium-manager
 C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\selenium-manager\macos\selenium-manager
 C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\selenium-manager\windows\selenium-manager.exe
 C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\BackupService.exe.config
-C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\BackupService.exe
 C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\BackupService.pdb
-C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\Backup.exe
 C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\Google.Apis.Drive.v3.dll
 C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\Google.Apis.dll
 C:\Users\Lenovo\Emre\GitHub\Backup\BackupService\bin\Debug\Google.Apis.Auth.dll

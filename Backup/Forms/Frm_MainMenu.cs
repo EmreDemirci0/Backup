@@ -29,7 +29,6 @@ namespace Backup
         private List<string> hedefSelectedItems = new List<string>();
         string servisSuresi;
         bool isSaveDrive = false;
-        string DosyaID;
         private Dictionary<string, string> driveFolders = new Dictionary<string, string>(); // Hedef Dosya ve klasörleri tutacak liste
         string DriveDosyaID;
         CompressionType myCompressionType;
@@ -75,7 +74,7 @@ namespace Backup
         }
         private void LoadXmlDatas()
         {
-            XmlDetaylar.LoadSettings(out fileName, out kaynakSelectedItems, out hedefSelectedItems,out servisSuresi, out isSaveDrive,out DosyaID, out myCompressionType, out mail);
+            XmlDetaylar.LoadSettings(out fileName, out kaynakSelectedItems, out hedefSelectedItems,out servisSuresi, out isSaveDrive,out DriveDosyaID, out myCompressionType, out mail);
 
 
 
@@ -107,8 +106,8 @@ namespace Backup
                 myCompressionType = CompressionType.folder;
 
             fileName = txt_dosyaAdi.Text;
-
-            XmlDetaylar.SaveSettings(fileName,kaynakSelectedItems, hedefSelectedItems,servisSuresi , isSaveDrive, DosyaID,myCompressionType,mail);
+            MessageBox.Show("DosyAID"+ DriveDosyaID);
+            XmlDetaylar.SaveSettings(fileName,kaynakSelectedItems, hedefSelectedItems,servisSuresi , isSaveDrive, DriveDosyaID, myCompressionType,mail);
 
         }
         private void Btn_kaynakSil_Click(object sender, EventArgs e)
@@ -541,6 +540,7 @@ namespace Backup
                     {
 
                         driveFolders.Add(folder.Name, folder.Id);
+
                     }
                     catch (Exception)
                     {
@@ -678,6 +678,7 @@ namespace Backup
         private void cmb_folders_SelectedIndexChanged(object sender, EventArgs e)
         {
             DriveSelectFolder();
+            
         }
 
         private void btn_googleCikis_Click(object sender, EventArgs e)
@@ -698,6 +699,11 @@ namespace Backup
         private void txt_mail_TextChanged(object sender, EventArgs e)
         {
             mail = txt_mail.Text;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

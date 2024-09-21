@@ -1,2 +1,31 @@
 Başarılı bir şekilde kaydettin - 20.09.2024 14:52:39
 Başarılı bir şekilde kaydettin - 20.09.2024 14:53:36
+Başarılı bir şekilde kaydettin - 20.09.2024 16:52:53
+Klasörleri alırken hata oluştu: The service drive has thrown an exception. HttpStatusCode is Unauthorized. Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project. - 20.09.2024 16:53:08 - 20.09.2024 16:53:08
+Başarılı bir şekilde kaydettin - 20.09.2024 17:17:25
+Dosya ilgili klasöre yükleniyor. Klasör ID: 1H62UmUsFSG5PY3TcXza6qSU_E7u0Z5At - 20.09.2024 17:17:28
+Başarılı bir şekilde kaydettin - 20.09.2024 17:18:57
+Başarılı bir şekilde kaydettin - 20.09.2024 17:22:17
+Başarılı bir şekilde kaydettin - 20.09.2024 17:22:26
+Dosya ilgili klasöre yükleniyor. Klasör ID: 1H62UmUsFSG5PY3TcXza6qSU_E7u0Z5At - 20.09.2024 17:22:31
+Dosya Google Drive root dizinine yükleniyor. - 20.09.2024 17:38:33
+Yükleme sırasında bir hata oluştu. Status: Failed, Hata mesajı: The service drive has thrown an exception. HttpStatusCode is Unauthorized. Request is missing required authentication credential. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project. - 20.09.2024 17:38:36
+Klasörleri alırken hata oluştu: The service drive has thrown an exception. HttpStatusCode is BadRequest. No error message was specified. - 20.09.2024 17:46:48 - 20.09.2024 17:46:48
+Başarılı bir şekilde kaydettin - 20.09.2024 17:46:53
+Dosya Google Drive root dizinine yükleniyor. - 20.09.2024 17:48:05
+Dosya Google Drive root dizinine yükleniyor. - 20.09.2024 17:48:50
+Klasörleri alırken hata oluştu: The service drive has thrown an exception. HttpStatusCode is BadRequest. No error message was specified. - 20.09.2024 17:49:32 - 20.09.2024 17:49:32
+Klasörleri alırken hata oluştu: The service drive has thrown an exception. HttpStatusCode is BadRequest. No error message was specified. - 20.09.2024 17:50:15 - 20.09.2024 17:50:15
+Başarılı bir şekilde kaydettin - 20.09.2024 18:05:22
+Dosya Google Drive root dizinine yükleniyor. - 20.09.2024 18:07:51
+Başarılı bir şekilde kaydettin - 20.09.2024 18:09:18
+Dosya Google Drive root dizinine yükleniyor. - 20.09.2024 18:09:32
+Başarılı bir şekilde kaydettin - 20.09.2024 18:11:23
+Başarılı bir şekilde kaydettin - 20.09.2024 18:16:08
+Dosya ilgili klasöre yükleniyor. Klasör ID: 1H62UmUsFSG5PY3TcXza6qSU_E7u0Z5At - 20.09.2024 18:16:25
+Dosya ilgili klasöre yükleniyor. Klasör ID: 1H62UmUsFSG5PY3TcXza6qSU_E7u0Z5At - 20.09.2024 18:25:26
+Başarılı bir şekilde kaydettin - 20.09.2024 18:27:35
+Başarılı bir şekilde kaydettin - 20.09.2024 18:27:56
+Başarılı bir şekilde kaydettin - 20.09.2024 18:28:02
+Başarılı bir şekilde kaydettin - 20.09.2024 18:28:42
+Dosya Google Drive root dizinine yükleniyor. - 20.09.2024 18:28:53

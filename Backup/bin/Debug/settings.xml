@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings>
-  <Kaynaklar>C:\Users\Lenovo\Desktop\{CV}Yunus Emre DemirciENG.pdf</Kaynaklar>
+  <FileName>Emre6</FileName>
+  <Kaynaklar>C:\Users\Lenovo\Desktop\{CV}Yunus Emre DemirciENG.pdf;C:\Users\Lenovo\Desktop\EskiEmre Demirci (CVENG).pdf</Kaynaklar>
   <Hedefler>C:\Users\Lenovo\Downloads\Database_Files</Hedefler>
-  <FileName>Emre</FileName>
-  <ServisSure>300000</ServisSure>
-  <SikistirmaTuru>rar</SikistirmaTuru>
-  <DriveKaydedilecekMi>false</DriveKaydedilecekMi>
+  <ServisSure>3600000</ServisSure>
+  <DriveKaydedilecekMi>true</DriveKaydedilecekMi>
+  <DosyaID></DosyaID>
+  <SikistirmaTuru>folder</SikistirmaTuru>
   <mail>yemre.1268@gmail.com</mail>
 </Settings>

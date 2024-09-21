@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Backup.Class
 {
@@ -18,10 +19,10 @@ namespace Backup.Class
         public string clientId = "443208802422-7ki16aca76sq48oq1f5ci6stavfvi8dn.apps.googleusercontent.com"; // Google Cloud Console'dan alınacak
         public string clientSecret = "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"; // Google Cloud Console'dan alınacak
         public string redirectUri = "urn:ietf:wg:oauth:2.0:oob"; // Sabit geri dönüş URI
-       
+        public Userinfo userInfo;
+
         private string tokenFilePath = "token.xml"; // Path where you save the token
 
-        public Userinfo userInfo;
         public async Task<string> GetAccessToken(string authCode)
         {
             try
@@ -89,18 +90,15 @@ namespace Backup.Class
 
         public void SaveAccessTokenToFile(string token)
         {
-            // Save the token to an XML or any other secure location
-            File.WriteAllText(tokenFilePath, token);
+            XmlDetaylar.SaveAccessTokenToFileForService( token, tokenFilePath);
         }
+
 
         public string LoadAccessTokenFromFile()
         {
-            if (File.Exists(tokenFilePath))
-            {
-                return File.ReadAllText(tokenFilePath);
-            }
-            return null;
+           return XmlDetaylar.LoadAccessTokenFromFile(tokenFilePath);
         }
+
 
         public void DeleteAccessTokenFile()
         {

@@ -14,11 +14,17 @@ namespace Backup
     {
         private static string GetFilePath()
         {
+            //string applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            //string settingsFilePath = Path.Combine(applicationDirectory, "settings.xml");
             string applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string settingsFilePath = Path.Combine(applicationDirectory, "settings.xml");
+            string parentDirectory = Directory.GetParent(applicationDirectory).Parent.FullName;
+            string parentDirectory2 = Directory.GetParent(parentDirectory).Parent.FullName;
+
+            string settingsFilePath = Path.Combine(parentDirectory2, "Backup", "bin", "Debug", "settings.xml");
+
             return settingsFilePath;
         }
-        public static void LoadSettings(out string fileName, out List<string> kaynakSelectedItems, out List<string> hedefSelectedItems, out string servisSuresi, out bool isSaveDrive, out string DosyaID,out CompressionType compressionType, out string mail) // XML dosyasından ayarları yükler
+        public static void LoadSettings(out string fileName, out List<string> kaynakSelectedItems, out List<string> hedefSelectedItems, out string servisSuresi, out bool isSaveDrive, out string DosyaID, out CompressionType compressionType, out string mail) // XML dosyasından ayarları yükler
         {
             string settingsFilePath = GetFilePath();
 
@@ -61,14 +67,14 @@ namespace Backup
                     isSaveDrive = true;
                 else
                     isSaveDrive = false;
-               
+
             }
             else
             {
                 Logger.WriteToLog("Load için XML dosyası bulunamadı...");
             }
         }
-        public static void SaveSettings(string fileName, List<string> kaynakSelectedItems, List<string> hedefSelectedItems, string servisSuresi, bool isSaveDrive,string DosyaID,CompressionType compressionType, string mail) // Ayarları XML dosyasına kaydeder
+        public static void SaveSettings(string fileName, List<string> kaynakSelectedItems, List<string> hedefSelectedItems, string servisSuresi, bool isSaveDrive, string DosyaID, CompressionType compressionType, string mail) // Ayarları XML dosyasına kaydeder
         {
             string settingsFilePath = GetFilePath();
 
@@ -149,27 +155,57 @@ namespace Backup
         {
             try
             {
+                Logger.WriteToLog("1");
                 string applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 string parentDirectory = Directory.GetParent(applicationDirectory).Parent.FullName;
                 string parentDirectory2 = Directory.GetParent(parentDirectory).Parent.FullName;
 
                 // token.xml dosyasının tam yolu
                 string settingsFilePath = Path.Combine(parentDirectory2, "Backup", "bin", "Debug", "token.xml");
+                Logger.WriteToLog("2" + settingsFilePath);
 
                 // token.xml dosyasını yükleyin
                 XDocument xmlDoc = XDocument.Load(settingsFilePath);
 
+                Logger.WriteToLog("3" + settingsFilePath);
+
                 // Token değerini çekin (XML dosyasındaki formatına göre bu işlemi uyarlayabilirsiniz)
                 string token = xmlDoc.Root.Value.Trim();
-                Logger.WriteToLog("Token"+ token);
+                Logger.WriteToLog("4Token" + token);
                 // Token'ı döndür
                 return token;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Hata: {ex.Message}");
+                Logger.WriteToLog($"Hata: {ex.Message}");
+                Logger.WriteToLog("5");
+
                 return string.Empty;
             }
+        }
+        public static void SaveAccessTokenToFileForService(string token,string tokenFilePath)
+        {
+            // XML formatında token'ı kaydet
+            XDocument xmlDoc = new XDocument(
+                new XElement("Token", token)
+            );
+
+            // XML dosyasını kaydet
+            xmlDoc.Save(tokenFilePath);
+        }
+        public static string LoadAccessTokenFromFile(string filePath)
+        {
+            //string filePath = @"C:\Users\Lenovo\Emre\GitHub\Backup\Backup\bin\Debug\token.xml";
+
+            XDocument doc = XDocument.Load(filePath);
+            XElement tokenElement = doc.Root;
+
+            if (tokenElement != null)
+            {
+                return tokenElement.Value; // Return the token value from the XML file
+            }
+
+            return null; // Handle case if Token element is not found
         }
     }
 }

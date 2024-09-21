@@ -45,6 +45,8 @@ namespace Backup
             this.label4 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox_Genel = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txt_mail = new System.Windows.Forms.TextBox();
             this.lbl_dosyaAdi = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txt_dosyaAdi = new System.Windows.Forms.TextBox();
@@ -77,8 +79,6 @@ namespace Backup
             this.btn_saveSettings = new System.Windows.Forms.Button();
             this.btn_manuelSikistir = new System.Windows.Forms.Button();
             this.btn_servisAcKapa = new System.Windows.Forms.Button();
-            this.txt_mail = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox_Zamanlayici.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -255,6 +255,24 @@ namespace Backup
             this.groupBox_Genel.TabIndex = 17;
             this.groupBox_Genel.TabStop = false;
             this.groupBox_Genel.Text = "Genel";
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label6.Location = new System.Drawing.Point(9, 331);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(298, 50);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Oluşan hataların mail olarak iletilmesini istiyorsanız mail adresini giriniz";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txt_mail
+            // 
+            this.txt_mail.Location = new System.Drawing.Point(14, 384);
+            this.txt_mail.Name = "txt_mail";
+            this.txt_mail.Size = new System.Drawing.Size(293, 25);
+            this.txt_mail.TabIndex = 4;
+            this.txt_mail.TextChanged += new System.EventHandler(this.txt_mail_TextChanged);
             // 
             // lbl_dosyaAdi
             // 
@@ -590,24 +608,6 @@ namespace Backup
             this.btn_servisAcKapa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btn_servisAcKapa.UseVisualStyleBackColor = true;
             this.btn_servisAcKapa.Click += new System.EventHandler(this.btn_servisBaslat_Click);
-            // 
-            // txt_mail
-            // 
-            this.txt_mail.Location = new System.Drawing.Point(14, 384);
-            this.txt_mail.Name = "txt_mail";
-            this.txt_mail.Size = new System.Drawing.Size(293, 25);
-            this.txt_mail.TabIndex = 4;
-            this.txt_mail.TextChanged += new System.EventHandler(this.txt_mail_TextChanged);
-            // 
-            // label6
-            // 
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label6.Location = new System.Drawing.Point(9, 331);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(298, 50);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Oluşan hataların mail olarak iletilmesini istiyorsanız mail adresini giriniz";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Frm_MainMenu
             // 
